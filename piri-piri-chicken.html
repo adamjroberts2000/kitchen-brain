@@ -307,7 +307,7 @@
   </section>
 
 
-  <footer>After Jamie Oliver&#x27;s 30-Minute Meals, without the tarts, for two adults with two thighs each. The sauce is made at full quantity because a blender won&#x27;t blitz half a batch cleanly - what&#x27;s left keeps a week in the fridge. Prep times are for an average cook.<span class="kv">Your Kitchen Brain kit 2.5.0</span></footer>
+  <footer>After Jamie Oliver&#x27;s 30-Minute Meals, without the tarts, for two adults with two thighs each. The sauce is made at full quantity because a blender won&#x27;t blitz half a batch cleanly - what&#x27;s left keeps a week in the fridge. Prep times are for an average cook.<span class="kv">Your Kitchen Brain kit 2.6.0</span></footer>
 </div>
 
 <button type="button" class="tl-open" id="tlOpen">Timeline</button>
@@ -1281,6 +1281,70 @@ async function holdWake(){
   paintWake();
 }
 function dropWake(){ if(wakeLock){ wakeLock.release().catch(()=>{}); wakeLock=null; } const v=document.getElementById("keepawake"); if(v && !v.paused) v.pause(); wakeState="off"; paintWake(); }
+// ---------- native Android shell (plan Phase 6b) ----------
+// In the Android app the pages run inside Capacitor, a native wrapper whose plugins reach Android itself.
+// In a normal browser window.Capacitor is absent and nothing below runs: the web app is unchanged.
+//
+// The one thing only native can do: ring with the phone locked. A page stops when it leaves the screen, so
+// when the app goes to the background every running timer's warning and end are booked with Android, at
+// the level Phase 5 would have chosen; when it comes back they are cancelled and the page rings itself,
+// so the two never both ring. Bookings follow every fact on the event channel while in the background.
+const CAP = window.Capacitor, NATIVE = !!(CAP && CAP.isNativePlatform && CAP.isNativePlatform());
+let nativeBooked = [], nativeAway = false;
+const NATIVE_CHANNELS = [   // sounds are res/raw files synthesised by tools/android.py to match the page's tones
+  {id: "kb-urgent", name: "Urgent alarms", description: "Food on the heat, or the next step is critical", importance: 5, sound: "kb_urgent.wav", vibration: true, visibility: 1},
+  {id: "kb-heads", name: "Heads-up", description: "Something needs you soon", importance: 4, sound: "kb_heads.wav", vibration: true, visibility: 1},
+  {id: "kb-soft", name: "Gentle notes", description: "Done with time to spare", importance: 3, sound: "kb_soft.wav", vibration: false, visibility: 1},
+];
+function nativeBookings(nowMs){   // pure: what Android should ring, for the timers running now
+  const out = []; if (!SESSION) return out;
+  T.forEach((t, k)=>{ if (!t.running || !t.total) return;
+    const s = STEPS[k], end = t.end, e = endLevel(k), w = warnSecs(s), id0 = 1000 + k*10;
+    if (w && !t.nearly && end - w*1000 > nowMs + 1000)
+      out.push({id: id0, at: end - w*1000, channelId: e.level === "urgent" ? "kb-heads" : "kb-soft",
+                title: label(k) + " - " + (w >= 120 ? Math.round(w/60) + " min" : w + " s") + " left", body: "Your Kitchen Brain"});
+    const repeats = e.level === "urgent" ? [0, 30, 60, 90] : [0];      // urgent rings again if it isn't answered
+    repeats.forEach((d, i)=>{ if (end + d*1000 > nowMs) out.push({id: id0 + 1 + i, at: end + d*1000,
+      channelId: e.level === "urgent" ? "kb-urgent" : "kb-soft",
+      title: e.level === "urgent" ? "Time's up: " + label(k) : label(k) + ": done", body: e.note || "Your Kitchen Brain"}); });
+  });
+  return out;
+}
+async function nativeSync(){
+  if (!NATIVE) return; const LN = CAP.Plugins.LocalNotifications;
+  const want = nativeAway ? nativeBookings(Date.now()) : [];
+  try {
+    if (nativeBooked.length) await LN.cancel({notifications: nativeBooked.map(id=>({id}))});
+    nativeBooked = [];
+    if (want.length) { await LN.schedule({notifications: want.map(n=>({id: n.id, title: n.title, body: n.body, channelId: n.channelId,
+                                                                      schedule: {at: new Date(n.at), allowWhileIdle: true}, autoCancel: true}))});
+                       nativeBooked = want.map(n=>n.id); }
+  } catch(e) { console.error("native alarms", e); }
+}
+if (NATIVE) {
+  const P = CAP.Plugins;
+  (async ()=>{ for (const c of NATIVE_CHANNELS) { try { await P.LocalNotifications.createChannel(c); } catch(e) {} } })();
+  const away = isAway=>{ nativeAway = isAway; nativeSync(); };
+  if (P.App && P.App.addListener) P.App.addListener("appStateChange", st=>away(!st.isActive));
+  document.addEventListener("visibilitychange", ()=>away(document.visibilityState === "hidden"));
+  for (const name of ["step-started", "step-paused", "step-finished", "step-reset", "plan-updated", "settings-changed", "cook-finished"])
+    on(name, ()=>{ if (nativeAway) nativeSync(); });
+  // Native screen-on and vibration replace the web versions.
+  holdWake = async ()=>{ try { await P.KeepAwake.keepAwake(); wakeState = "api"; } catch(e) {} paintWake(); };
+  dropWake = ()=>{ try { P.KeepAwake.allowSleep(); } catch(e) {} wakeState = "off"; paintWake(); };
+  buzz = pattern=>{ if (!SETTINGS.vibrate) return;
+    const ms = Array.isArray(pattern) ? pattern.filter((_, i)=>i % 2 === 0).reduce((a, b)=>a + b, 0) : pattern;
+    try { P.Haptics.vibrate({duration: ms}); } catch(e) {} };
+  // At the first timer: notification permission, then exact alarms ("Alarms & reminders"), which Android 14+
+  // leaves off for apps installed by hand. Without it a locked phone may ring minutes late.
+  on("cook-started", async ()=>{
+    try { await P.LocalNotifications.requestPermissions();
+      const ex = await P.LocalNotifications.checkExactNotificationSetting();
+      if (ex.exact_alarm !== "granted" && confirm("To ring on time with the screen locked, Kitchen Brain needs 'Alarms & reminders'. Open that setting now?"))
+        await P.LocalNotifications.changeExactNotificationSetting();
+    } catch(e) {}
+  });
+}
 function anyRunning(){ return T.some(t=>t.running); }
 async function openCook(){ cm.classList.add("on"); document.body.style.overflow="hidden"; showStep(ORDER[0]); holdWake();
   const fb=document.getElementById("cmFull"); fb.hidden = !(document.fullscreenEnabled || document.webkitFullscreenEnabled);
