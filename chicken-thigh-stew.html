@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0F2138">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+<title>Chicken thigh, potato and courgette stew</title>
+
+
+<style>
+  :root{
+    --navy:#0F2138; --coral:#ED8767; --teal:#3D6B7A; --cream:#F5EBE5; --wine:#8B2D3A; --slate:#7A8B9C;
+    --ink:var(--navy); --paper:var(--cream); --teal-wash:rgba(61,107,122,.10); --navy-wash:rgba(15,33,56,.06);
+    --display:"Fraunces",Georgia,serif; --ui:"Instrument Sans",system-ui,sans-serif; --fig:"IBM Plex Mono",ui-monospace,monospace;
+    --r:14px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%;background:var(--navy)}
+  body{background:var(--paper);color:var(--ink);font-family:var(--ui);font-size:17px;line-height:1.5;min-height:100vh}
+  button{font:inherit;color:inherit;background:none;border:2px solid var(--navy);border-radius:999px;padding:.6rem 1.05rem;cursor:pointer;font-family:var(--ui);font-size:15px;font-weight:600;touch-action:manipulation}
+  button:focus-visible{outline:3px solid var(--coral);outline-offset:2px}
+  button:disabled{opacity:.35;cursor:default}
+  strong{font-weight:700}
+  em{font-family:var(--display);font-style:italic;font-weight:500}
+  .wrap{max-width:640px;margin:0 auto;padding:0 1.25rem 5rem}
+
+  /* ---- hero: navy field ---- */
+  .hero{background:var(--navy);color:var(--cream);margin:0 -1.25rem 1.75rem;padding:1.1rem 1.25rem 1.75rem}
+  .hero .inner{max-width:640px;margin:0 auto}
+  .mark{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--display);font-size:16px;color:var(--cream);opacity:.85;margin-bottom:1.6rem}
+  .mark b{font-weight:700;font-style:italic;color:var(--coral)}
+  .mark .no{font-variant-numeric:tabular-nums}
+  .kicker{font-family:var(--display);font-style:italic;font-size:18px;color:var(--coral);margin-bottom:.6rem}
+  h1{font-family:var(--display);font-optical-sizing:auto;font-weight:700;font-size:clamp(34px,8.5vw,48px);line-height:1.02;letter-spacing:-.02em;max-width:15ch;color:var(--cream)}
+  .lede{font-family:var(--display);font-style:italic;font-weight:400;font-size:20px;line-height:1.4;margin-top:1rem;max-width:40ch;color:var(--cream);opacity:.9}
+  .meta{display:flex;gap:1.6rem;flex-wrap:wrap;align-items:flex-end;margin-top:1.5rem;font-size:15px;color:var(--cream);opacity:.85}
+  .meta span:first-child{font-family:var(--display);font-style:italic;opacity:1}
+  .meta span:first-child b{display:block;font-style:normal;font-size:44px;line-height:1;font-weight:700;color:var(--coral);font-variant-numeric:tabular-nums;margin-top:.15rem;letter-spacing:-.02em}
+  .meta b{color:var(--cream);font-weight:700}
+  .meta .plate i{font-family:var(--display);font-style:italic}
+  .meta .plate b{display:block;font-size:44px;line-height:1;color:var(--coral);font-variant-numeric:tabular-nums;margin-top:.15rem;letter-spacing:-.02em}
+  .cm-plate{margin-left:.8rem;font-family:var(--fig);font-style:normal;font-size:15px;color:var(--cream)}
+
+  /* ---- controls ---- */
+  .controls{display:flex;align-items:center;justify-content:space-between;gap:.75rem;flex-wrap:wrap;margin-bottom:.9rem}
+  .stepper{display:flex;align-items:center;border:2px solid var(--navy);border-radius:999px;overflow:hidden}
+  .stepper button{width:2.7rem;height:2.7rem;padding:0;display:grid;place-items:center;font-size:22px;border:0;border-radius:0}
+  .stepper output{min-width:8rem;text-align:center;font-weight:700;font-size:15px}
+  .cook{background:var(--coral);color:var(--navy);border-color:var(--coral);padding:.8rem 1.35rem;font-weight:700;font-size:16px}
+  .speed{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;font-size:14px;color:var(--slate);margin-bottom:.6rem}
+  .speed .opts{display:flex;background:var(--navy-wash);border-radius:999px;padding:3px}
+  .speed .opts button{border:0;padding:.45rem .85rem;font-size:14px;border-radius:999px}
+  .speed .opts button.on{background:var(--navy);color:var(--cream)}
+  .speed .fac{margin-left:auto;font-variant-numeric:tabular-nums}
+  .hint{font-family:var(--display);font-style:italic;font-size:14px;color:var(--slate);margin:0 0 2.25rem;max-width:52ch}
+  .hint button.link{border:0;padding:0;font:inherit;color:var(--teal);text-decoration:underline;cursor:pointer}
+
+  h2{font-family:var(--display);font-style:italic;font-weight:600;font-size:24px;color:var(--ink);margin:0 0 1rem}
+  section{margin-bottom:2.75rem}
+
+  /* ---- timings: coral edge ---- */
+  .timings{list-style:none;font-size:15px;border-left:4px solid var(--coral);padding-left:1rem}
+  .timings li{display:grid;grid-template-columns:2.4rem 1fr;gap:.5rem;padding:.5rem 0;align-items:baseline}
+  .timings .n{font-family:var(--display);font-style:italic;font-weight:700;color:var(--coral);font-size:18px}
+  .timings .t{font-family:var(--fig);font-weight:600;font-variant-numeric:tabular-nums;margin-right:.6rem}
+  .timings li.crit .t{color:var(--wine)}
+  .timings .cue{display:block;color:var(--teal);font-size:14px;margin-top:.15rem;font-family:var(--display);font-style:italic}
+
+  /* ---- timeline ---- */
+  .gantt{width:100%;overflow:hidden;font-family:var(--ui);font-size:11px;background:var(--navy-wash);border-radius:var(--r);padding:.9rem .8rem .5rem}
+  .gantt svg{width:100%;height:auto;display:block}
+  .gantt .lbl{fill:var(--ink);font-size:11px;font-weight:600} .gantt .grid{stroke:rgba(15,33,56,.15);stroke-width:1} .gantt .tick{fill:var(--slate);font-family:var(--fig);font-size:10px}
+  .gantt .crit{fill:var(--wine)} .gantt .hands{fill:var(--coral)} .gantt .pass{fill:var(--slate);opacity:.45} .gantt .flt{fill:none;stroke:var(--slate);stroke-dasharray:3 2;stroke-width:1}
+  .gantt .free{fill:var(--teal);opacity:.35} .gantt .now{stroke:var(--navy);stroke-width:2}
+  .glegend{font-size:13px;color:var(--slate);margin-top:.7rem;line-height:1.9}
+  .glegend .k{display:inline-block;width:12px;height:9px;margin:0 .35rem 0 1rem;vertical-align:middle;border-radius:3px}
+  .glegend .k:first-child{margin-left:0}
+  .glegend .k.st-done{background:var(--coral);opacity:.5} .glegend .k.st-run{background:linear-gradient(90deg,var(--coral) 55%,rgba(237,135,103,.22) 55%);border:1.5px solid var(--coral)} .glegend .k.st-todo{background:rgba(237,135,103,.22);border:1.5px solid var(--coral)} .glegend .k.ghost{border:1.5px dashed var(--slate)}
+  .gantt .todo{fill-opacity:.22;stroke-width:1.5} .gantt .crit.todo{stroke:var(--wine)} .gantt .hands.todo{stroke:var(--coral)} .gantt .pass.todo{stroke:var(--slate);opacity:1}
+  .gantt .done{opacity:.5} .gantt .pass.done{opacity:.3}
+  .gantt .ghost{fill:none;stroke:var(--slate);stroke-width:1.5;stroke-dasharray:3 3}
+  .gantt .tickmark{fill:var(--ink);font-size:12px;font-weight:700}
+  .gantt .hit{fill:transparent} .gantt g.row{cursor:pointer} .gantt g.row:hover .lbl{fill:var(--wine)}
+  .greads{display:flex;flex-wrap:wrap;gap:.4rem 1.6rem;margin:0 0 .8rem;font-size:14px;color:var(--slate)}
+  .greads i{font-family:var(--display);font-style:italic;margin-right:.4rem} .greads b{font-family:var(--fig);color:var(--ink);font-size:16px;font-variant-numeric:tabular-nums}
+  .tl-open{position:fixed;right:1rem;bottom:calc(1rem + env(safe-area-inset-bottom));z-index:6;background:var(--navy);color:var(--cream);border-color:var(--navy);box-shadow:0 4px 14px rgba(15,33,56,.3)}
+  .tl-sheet{position:fixed;inset:0;z-index:20;background:var(--paper);display:flex;flex-direction:column;padding:0 0 env(safe-area-inset-bottom)}
+  .tl-sheet[hidden]{display:none}
+  .tl-top{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:.8rem 1rem .4rem;background:var(--paper)}
+  .tl-top .greads{margin:0}
+  .tl-body{flex:1;overflow:auto;padding:0 1rem} .tl-body .lbl{font-size:13px} .tl-body .tickmark{font-size:14px} .tl-body .gantt svg{width:auto}
+  .tl-hint{font-family:var(--display);font-style:italic;font-size:13px;color:var(--slate);padding:.3rem 1rem 0}
+  .tl-sheet .glegend{padding:0 1rem .8rem;margin:0}
+  @media (orientation:landscape) and (max-height:520px){ .tl-sheet .glegend, .tl-hint{display:none} }
+  .cm-btns{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:flex-end}
+  .glegend .k.crit{background:var(--wine)} .glegend .k.hands{background:var(--coral)} .glegend .k.pass{background:var(--slate);opacity:.45} .glegend .k.flt{border:1px dashed var(--slate)} .glegend .k.free{background:var(--teal);opacity:.35}
+
+  /* ---- ingredients ---- */
+  ul.ings{list-style:none}
+  ul.ings li{display:grid;grid-template-columns:5.5rem 1fr;gap:.8rem;padding:.4rem 0;align-items:baseline;font-size:16px}
+  ul.ings .q{font-family:var(--fig);font-size:14px;font-weight:600;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;color:var(--ink)}
+  ul.ings .pantry{color:var(--slate)} ul.ings .pantry .q{color:var(--slate);font-weight:500}
+
+  /* ---- method: numerals and space, no rules ---- */
+  ol.steps{list-style:none}
+  ol.steps > li{display:grid;grid-template-columns:3.2rem 1fr;gap:.6rem;padding:0 0 2rem}
+  ol.steps > li > div{min-width:0}   /* let the text column shrink to the screen instead of its widest item */
+  ol.steps .n{font-family:var(--display);font-style:italic;font-weight:700;color:var(--coral);font-size:34px;line-height:1;padding-top:0}
+  ol.steps h3{font-family:var(--display);font-weight:700;font-size:22px;line-height:1.15;margin:.2rem 0 .5rem}
+  ol.steps p{max-width:58ch;font-size:17px}
+  ol.steps .link{font-size:15px;color:var(--teal);margin-top:.7rem;font-style:italic;font-family:var(--display)}
+  ol.steps li.crit .n{color:var(--wine)}
+  ol.steps li.along h3::after{content:" - alongside";font-weight:400;font-style:italic;color:var(--slate);font-size:15px}
+  ol.steps li.prep0 .n{color:var(--slate)}
+
+  .need{display:flex;flex-wrap:wrap;gap:.2rem 1rem;margin-top:.6rem;max-width:58ch;font-size:14px;font-weight:600;color:var(--ink)}
+  .need .pantry{color:var(--slate);font-weight:500}
+  .need .remind{color:var(--wine);font-weight:500;font-style:italic}
+  .mw li .need{text-indent:0;margin-top:.15rem;font-size:13px}
+  .cm-ings span.pantry{color:var(--slate);font-weight:500} .cm-ings span.remind{color:var(--coral);font-weight:500;font-style:italic}
+  /* amounts inside cooking mode's Meanwhile box sit on navy: light slate, not the page's navy ink */
+  .cm-mw .need{color:var(--slate)} .cm-mw .need .pantry{color:var(--slate);opacity:.7} .cm-mw .need .remind{color:var(--coral)}
+  .mw{margin-top:1rem;max-width:58ch;background:var(--teal-wash);border-radius:var(--r);padding:.85rem 1rem .7rem}
+  .mw b{font-family:var(--display);font-style:italic;font-weight:600;font-size:16px;color:var(--teal);display:block;margin-bottom:.35rem}
+  .mw ul{list-style:none} .mw li{padding:.22rem 0 .22rem 1.1rem;text-indent:-1.1rem;font-size:16px}
+  .mw li::before{content:"\2013  ";color:var(--teal)}
+  .mw li i{white-space:nowrap;font-style:normal;color:var(--teal);font-family:var(--fig);font-size:12px;margin-left:.45rem;font-variant-numeric:tabular-nums}
+
+  /* ---- timer instrument: navy ---- */
+  .st{display:grid;grid-template-columns:auto 1fr auto auto auto;align-items:center;gap:.8rem;margin-top:1rem;padding:.8rem .9rem;background:var(--navy);color:var(--cream);border-radius:var(--r);border:3px solid var(--navy)}
+  .st .clock{font-family:var(--fig);font-size:26px;font-weight:600;letter-spacing:-.01em;font-variant-numeric:tabular-nums;min-width:5.4ch}
+  .st .clock.warn{color:var(--coral)} .st .clock.done{color:var(--coral)}
+  .st .bar{height:6px;background:rgba(245,235,229,.2);position:relative;border-radius:3px;min-width:3rem}
+  .st .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--coral);width:0;border-radius:3px}
+  .st .bar u{position:absolute;top:-4px;bottom:-4px;width:3px;background:var(--cream);text-decoration:none;border-radius:2px}
+  .st button{padding:.5rem .9rem;font-size:14px;border-color:rgba(245,235,229,.5);color:var(--cream)}
+  .st button.go{background:var(--coral);border-color:var(--coral);color:var(--navy);font-weight:700}
+  .st button.go.run{background:var(--cream);border-color:var(--cream);color:var(--navy)}
+  .st .bar u.w{background:var(--coral);width:2px}
+  .st button.go.ring{background:var(--wine);border-color:var(--wine);color:var(--cream)}
+  .st.ringing{border-color:var(--wine)}
+  .strip span.ring b{color:var(--wine)}
+  @keyframes pulse{50%{opacity:.55}}
+  @media (prefers-reduced-motion:no-preference){ .st button.go.ring,.strip span.ring b{animation:pulse 1s ease-in-out infinite} }
+  li.running .st{border-color:var(--coral)}
+  li.running .n{color:var(--coral)}
+
+  .notes p{max-width:58ch;margin-bottom:.9rem;font-family:var(--display);font-style:italic;font-size:18px;line-height:1.45}
+  footer{font-size:14px;color:var(--cream);background:var(--navy);margin:0 -1.25rem;padding:1.5rem 1.25rem 2rem}
+  footer p,footer{max-width:none}
+  footer .kv{display:block;margin-top:1rem;font-family:var(--fig);font-size:11px;opacity:.55}
+
+  /* ---- running strip ---- */
+  .strip{position:sticky;top:0;z-index:5;background:var(--coral);color:var(--navy);font-size:14px;font-weight:600;padding:.65rem 1.25rem;display:none;gap:.4rem 1.25rem;flex-wrap:wrap;font-variant-numeric:tabular-nums}
+  .strip.on{display:flex}
+  .strip span b{font-family:var(--fig);font-weight:700;margin-right:.45rem}
+  .strip span.warn b{color:var(--wine)}
+  .strip span.cue{flex-basis:100%;color:var(--navy)}
+  .strip span.cue b{font-family:var(--ui)}
+
+  /* ---- cooking mode: the stage ---- */
+  .cookmode{position:fixed;inset:0;background:var(--navy);color:var(--cream);display:none;flex-direction:column;overflow:auto;z-index:10;padding-bottom:env(safe-area-inset-bottom)}
+  .cookmode.on{display:flex}
+  .cookmode button{border-color:rgba(245,235,229,.5);color:var(--cream)}
+  .cm-top{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.25rem .5rem;font-family:var(--display);font-style:italic;font-size:17px;color:var(--coral)}
+  .cm-top button{font-size:14px;padding:.45rem .9rem}
+  .cm-body{flex:1;padding:.5rem 1.25rem 1.5rem;max-width:640px;width:100%;margin:0 auto;display:flex;flex-direction:column}
+  .cm-n{font-family:var(--display);font-style:italic;font-weight:700;color:var(--coral);font-size:30px;line-height:1;margin-bottom:.5rem}
+  .cm-title{font-family:var(--display);font-weight:700;font-size:clamp(30px,7.5vw,40px);line-height:1.05;margin-bottom:1rem;letter-spacing:-.015em}
+  .cm-text{font-size:19px;line-height:1.5;max-width:54ch}
+  .cm-mw{margin-top:1.1rem;font-size:17px;max-width:54ch;background:rgba(245,235,229,.08);border-radius:var(--r);padding:.85rem 1rem .7rem}
+  .cm-mw b{font-family:var(--display);font-style:italic;font-weight:600;font-size:16px;color:var(--coral);display:block;margin-bottom:.35rem}
+  .cm-mw ul{list-style:none} .cm-mw li{padding:.22rem 0 .22rem 1.1rem;text-indent:-1.1rem} .cm-mw li::before{content:"\2013  ";color:var(--coral)}
+  .cm-mw li i{font-style:normal;color:var(--slate);font-family:var(--fig);font-size:12px;margin-left:.45rem}
+  .cm-ings{margin-top:1.25rem;font-size:15px;color:var(--slate);padding-top:.9rem}
+  .cm-ings span{color:var(--cream);display:inline-block;margin-right:1.25rem;margin-bottom:.35rem;font-weight:600}
+  .cm-timings{margin-top:1.25rem;padding-top:.9rem}
+  .cm-timings h4{font-family:var(--display);font-style:italic;font-weight:600;font-size:16px;color:var(--coral);margin-bottom:.5rem}
+  .cm-timings .timings{border-left-color:var(--coral)} .cm-timings .timings li.crit .t{color:var(--coral)} .cm-timings .timings .cue{color:var(--slate)}
+  .cm-cue{font-size:18px;color:var(--navy);background:var(--coral);border-radius:var(--r);padding:.7rem 1rem;margin-top:1rem;font-weight:700}
+  .cm-timer{margin-top:auto;padding-top:1.5rem}
+  .cm-timer .st{grid-template-columns:1fr;gap:1rem;padding:1.2rem 1rem 1rem;background:rgba(245,235,229,.06);border-color:rgba(245,235,229,.25)}
+  .cm-timer .st .clock{font-size:clamp(72px,22vw,120px);line-height:1;letter-spacing:-.04em;text-align:center;font-weight:600}
+  .cm-timer .st .bar{height:8px}
+  .cm-timer .st .row{display:grid;grid-template-columns:2fr 1fr 1fr;gap:.6rem} .cm-timer .st .row button{white-space:nowrap}
+  .cm-timer .st .row button{padding:1rem 1.1rem;font-size:17px}
+  .cm-timer .none{font-family:var(--display);font-style:italic;font-size:16px;color:var(--slate);text-align:center;padding:1rem 0}
+  .cm-nav{display:flex;justify-content:space-between;gap:.6rem;padding:1rem 1.25rem 1.25rem;max-width:640px;width:100%;margin:0 auto}
+  .cm-nav button{flex:1;padding:1.05rem;font-size:17px;font-weight:700}
+  .cm-nav button.fin{background:var(--coral);color:var(--navy);border-color:var(--coral)}
+  .cm-others{font-size:15px;color:var(--slate);margin-top:1.25rem;font-variant-numeric:tabular-nums}
+  .cm-others .lbl{font-family:var(--display);font-style:italic;color:var(--coral);margin-bottom:.3rem}
+  .cm-others .row{display:grid;grid-template-columns:4.6rem 1fr;gap:.6rem;padding:.45rem 0;cursor:pointer;color:var(--cream)}
+  .cm-others .row b{font-family:var(--fig);font-weight:700}
+  .cm-wake{font-family:var(--display);font-style:italic;font-size:14px;color:var(--slate);margin-top:1rem}
+
+  @media (prefers-reduced-motion:no-preference){ .st .bar i{transition:width .5s linear} }
+  @media (max-width:420px){ ul.ings li{grid-template-columns:4.8rem 1fr} ol.steps > li{grid-template-columns:2.7rem 1fr} ol.steps .n{font-size:30px} }
+  /* ---- controls for wet, floury hands (plan Phase 3) ----
+     Every control at least 56 px tall, cooking mode's main actions 72 px, 12 px or more between neighbours.
+     A visible press, and a short buzz where the phone can. Reset needs a press-and-hold. */
+  button{min-height:56px;padding:.7rem 1.2rem}
+  button.link{min-height:0;padding:0}
+  .stepper button{width:56px;height:56px;min-height:56px}
+  .speed .opts button{min-height:56px;padding:.6rem 1rem}
+  .st button{min-height:56px;font-size:15px}
+  .cm-top{flex-direction:column;align-items:stretch;gap:.6rem}
+  .cm-btns{display:flex;justify-content:space-between;gap:.75rem} .cm-right{display:flex;gap:.75rem}
+  .cm-top button{min-height:56px;font-size:15px;padding:.6rem 1.1rem} #cmFull{min-width:56px;padding:0;font-size:22px;font-style:normal}
+  .cm-mw li .need{text-indent:0;margin-top:.15rem;font-size:14px}
+  .cm-timer .st .row{gap:.75rem} .cm-timer .st .row button{min-height:72px;font-size:18px;padding:.5rem .6rem}
+  .cm-nav{display:grid;grid-template-columns:minmax(6rem,1fr) 3fr;gap:.75rem}
+  .cm-nav button{min-height:72px;font-size:19px}
+  .cm-others .row{min-height:56px;align-items:center}
+  .tl-open{min-height:56px}
+  button:active:not(:disabled){filter:brightness(.88)}
+  @media (prefers-reduced-motion:no-preference){ button{transition:transform .06s,filter .06s} button:active:not(:disabled){transform:translateY(2px) scale(.98)} }
+  button.hold{-webkit-touch-callout:none;user-select:none;-webkit-user-select:none}
+  button.holding{color:var(--cream);background:linear-gradient(var(--wine),var(--wine)) left/0% 100% no-repeat;animation:holdfill .8s linear forwards}
+  @keyframes holdfill{to{background-size:100% 100%}}
+  @media (max-width:420px){ #read .st{grid-template-columns:1fr auto auto;grid-template-areas:"clock bar bar" "go fin reset"} #read .st .clock{grid-area:clock} #read .st .bar{grid-area:bar} #read .st .go{grid-area:go} #read .st .fin-btn{grid-area:fin} #read .st .reset-btn{grid-area:reset} }
+  .st button.fin-btn{border-color:var(--cream);color:var(--cream)} .st button.go.undo{background:var(--cream);border-color:var(--cream);color:var(--navy)}
+  .cm-cue:empty{display:none}
+  /* alert levels: urgent takes the whole screen; heads-up and soft are banners that clear themselves */
+  .alarm-over{position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:1rem;
+    padding:2rem 1.5rem calc(2rem + env(safe-area-inset-bottom));border:0;border-radius:0;background:var(--wine);color:var(--cream);text-align:left;cursor:pointer}
+  .alarm-over[hidden]{display:none}
+  .alarm-over .ao-k{font-family:var(--display);font-style:italic;font-size:22px;opacity:.85}
+  .alarm-over .ao-title{font-family:var(--display);font-weight:700;font-size:clamp(34px,9vw,52px);line-height:1.05}
+  .alarm-over .ao-note{font-size:19px;line-height:1.45;max-width:30ch}
+  .alarm-over .ao-tap{margin-top:1.5rem;font-weight:700;font-size:18px;border:2px solid var(--cream);border-radius:999px;padding:.9rem 1.4rem}
+  @media (prefers-reduced-motion:no-preference){ .alarm-over .ao-tap{animation:pulse 1s ease-in-out infinite} }
+  .strip span.cue.lvl-soft{font-weight:500}
+  .cm-cue.lvl-soft{background:rgba(245,235,229,.12);color:var(--cream);font-weight:500}
+  .set-sheet{z-index:30} .set-sheet h2{margin:0} .set-sheet .tl-body{padding:1rem 1.25rem 2rem}
+  #cmSet{min-width:56px;padding:0;font-size:22px;font-style:normal}
+  .cm-auto{margin-top:1rem;padding:.8rem 1rem;border-radius:var(--r);background:var(--coral);color:var(--navy);font-weight:700;font-size:18px;display:flex;flex-direction:column;gap:.7rem}
+  .cm-auto[hidden]{display:none}
+  .cm-auto-btns{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+  .cookmode .cm-auto button{border-color:var(--navy);color:var(--navy);min-height:56px} .cookmode .cm-auto button#cmAutoNow{background:var(--navy);color:var(--cream)}
+</style>
+<link rel="stylesheet" href="fonts/fonts.css"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="icon-180.png"></head>
+<body>
+<div class="strip" id="strip" aria-live="polite"></div>
+<button type="button" class="alarm-over" id="alarmOver" hidden aria-live="assertive"><span class="ao-k">Time's up</span><span class="ao-title" id="aoTitle"></span><span class="ao-note" id="aoNote"></span><span class="ao-tap">Tap anywhere to stop the alarm</span></button>
+<div class="wrap" id="read">
+  <div class="hero"><div class="inner">
+  <div class="mark"><span>Your Kitchen <b>Brain</b></span><span class="no">No. 02</span></div>
+  <header>
+    <div class="kicker">Sunday stew  /  serves the four of us</div>
+    <h1>Chicken thigh, potato and courgette stew</h1>
+    <p class="lede">Tender thighs, soft potatoes, courgette added late, a slug of vinegar early and a mustard cream at the end.</p>
+    <div class="meta"><span>Start to plate<b id="total"></b></span><span class="plate"><i id="plateLbl"></i><b id="plate"></b></span>
+      <span>Hob <b>one pot</b></span>
+      </div>
+  </header>
+  </div></div>
+
+  <div class="controls">
+    <div class="stepper" aria-label="Servings">
+      <button type="button" id="dec" aria-label="Fewer servings">-</button>
+      <output id="srv" aria-live="polite"></output>
+      <button type="button" id="inc" aria-label="More servings">+</button>
+    </div>
+    <button type="button" class="cook" id="startCook">Start cooking</button>
+    <button type="button" id="setOpen">Settings</button>
+  </div>
+  <div class="speed" aria-label="Cook speed">
+    <span class="lbl">Who's cooking</span>
+    <div class="opts" id="speedOpts"></div>
+    <span class="fac" id="speedFac"></span>
+  </div>
+  <p class="hint">The screen stays on while a timer is running. On a phone, add this page to your home screen to open it without the browser bar. Every timer gives a soft note before the end and a hard alarm at the end that repeats until you stop it. <button type="button" class="link" id="hear">Hear the alarms</button> <button type="button" class="link" id="endCook" hidden>Start over</button></p>
+
+  <section>
+    <h2>Ingredients</h2>
+    <ul class="ings" id="ings"></ul>
+  </section>
+
+  <section>
+    <h2>Timings</h2>
+    <ul class="timings" id="timings"></ul>
+  </section>
+
+  <section>
+    <h2>Timeline</h2>
+    <div class="greads"><span><i>Hands-free</i><b id="gFree"></b></span><span hidden><i>Spare time</i><b id="gSpare"></b></span></div>
+    <div id="gantt"></div>
+    <p class="glegend"><span class="k crit"></span>no spare time <span class="k hands"></span>hands on, has spare time <span class="k pass"></span>passive <span class="k free"></span>hands free<br><span class="k st-done"></span>done ✓ <span class="k st-run"></span>running, filling <span class="k st-todo"></span>to do <span class="k ghost"></span>where the plan had it <span class="k flt"></span>could slip to here</p>
+  </section>
+
+  <section>
+    <h2>Method</h2>
+    <ol class="steps" id="steps"></ol>
+  </section>
+
+  <section class="notes">
+    <h2>Notes</h2>
+    <p>Sweetheart cabbage: shredded and stirred in for the last 4 - 5 minutes with the courgette, or cut into wedges, charred cut-side down in butter and served alongside. Not simmered from the start.</p>
+    <p>Serve the boys first, then stir the cream and mustard into what&#x27;s left for the adults.</p>
+    <p>Better the next day. A squeeze of lemon at the end does the same job as the vinegar, sharper and later.</p>
+  </section>
+
+
+  <footer>Base recipe for 4 - 5 thighs, about 550 g. If only 4, take the potatoes up to 600 g. Prep times are for an average cook; pick who&#x27;s cooking and the plan reshuffles.<span class="kv">Your Kitchen Brain kit 2.5.0</span></footer>
+</div>
+
+<button type="button" class="tl-open" id="tlOpen">Timeline</button>
+<div class="tl-sheet" id="tl" role="dialog" aria-modal="true" aria-label="Timeline" hidden>
+  <div class="tl-top"><div class="greads"><span><i>Dinner at</i><b id="tlPlate"></b></span><span><i>Hands-free</i><b id="tlFree"></b></span><span hidden><i>Spare time</i><b id="tlSpare"></b></span></div>
+    <button type="button" id="tlClose">Close</button></div>
+  <div class="tl-body" id="tlBody"></div>
+  <p class="tl-hint">Tap a row to go to that step.</p>
+  <p class="glegend"><span class="k crit"></span>no spare time <span class="k hands"></span>hands on, has spare time <span class="k pass"></span>passive <span class="k free"></span>hands free<br><span class="k st-done"></span>done ✓ <span class="k st-run"></span>running, filling <span class="k st-todo"></span>to do <span class="k ghost"></span>where the plan had it <span class="k flt"></span>could slip to here</p>
+</div>
+
+<div class="tl-sheet set-sheet" id="set" role="dialog" aria-modal="true" aria-label="Settings" hidden>
+  <div class="tl-top"><h2>Settings</h2><button type="button" id="setClose">Close</button></div>
+  <div class="tl-body" id="setBody"></div>
+</div>
+
+<div class="cookmode" id="cm" role="dialog" aria-modal="true" aria-label="Cooking mode">
+  <div class="cm-top">
+    <span class="cm-btns"><button type="button" id="cmTl">Timeline</button><span class="cm-right"><button type="button" id="cmSet" aria-label="Settings" title="Settings">⚙</button><button type="button" id="cmFull" hidden aria-label="Full screen" title="Full screen">⤢</button><button type="button" id="cmClose">Close</button></span></span>
+    <span class="cm-prog"><span id="cmProg"></span><span id="cmPlate" class="cm-plate"></span></span>
+  </div>
+  <div class="cm-body">
+    <div class="cm-n" id="cmN"></div>
+    <div class="cm-title" id="cmTitle"></div>
+    <div class="cm-text" id="cmText"></div>
+    <div id="cmMw"></div>
+    <div class="cm-ings" id="cmIngs"></div>
+    <div class="cm-timings" id="cmTimings" hidden></div>
+    <div class="cm-cue" id="cmCue"></div>
+    <div class="cm-auto" id="cmAuto" hidden><span id="cmAutoText"></span><span class="cm-auto-btns"><button type="button" id="cmAutoNow">Start now</button><button type="button" id="cmAutoNo">Not yet</button></span></div>
+    <div class="cm-timer" id="cmTimer"></div>
+    <div class="cm-others" id="cmOthers"></div>
+    <div class="cm-wake" id="cmWake"></div>
+  </div>
+  <video id="keepawake" playsinline muted loop width="16" height="16" style="position:fixed;left:-9999px;top:0;opacity:0.01;pointer-events:none" aria-hidden="true"><source src="data:video/mp4;base64,AAAAIGZ0eXBpc29tAAACAGlzb21pc28yYXZjMW1wNDEAAANLbW9vdgAAAGxtdmhkAAAAAAAAAAAAAAAAAAAD6AAAA+gAAQAAAQAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAnV0cmFrAAAAXHRraGQAAAADAAAAAAAAAAAAAAABAAAAAAAAA+gAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAABAAAAAABAAAAAQAAAAAAAkZWR0cwAAABxlbHN0AAAAAAAAAAEAAAPoAAAAAAABAAAAAAHtbWRpYQAAACBtZGhkAAAAAAAAAAAAAAAAAAAoAAAAKABVxAAAAAAALWhkbHIAAAAAAAAAAHZpZGUAAAAAAAAAAAAAAABWaWRlb0hhbmRsZXIAAAABmG1pbmYAAAAUdm1oZAAAAAEAAAAAAAAAAAAAACRkaW5mAAAAHGRyZWYAAAAAAAAAAQAAAAx1cmwgAAAAAQAAAVhzdGJsAAAAuHN0c2QAAAAAAAAAAQAAAKhhdmMxAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAABAAEABIAAAASAAAAAAAAAABFUxhdmM2MC4zMS4xMDIgbGlieDI2NAAAAAAAAAAAAAAAGP//AAAALmF2Y0MBQsAK/+EAFmdCwArZHsBEAAADAAQAAAMAUDxImSABAAVoy4PLIAAAABBwYXNwAAAAAQAAAAEAAAAUYnRydAAAAAAAABaoAAAWqAAAABhzdHRzAAAAAAAAAAEAAAAKAAAEAAAAABRzdHNzAAAAAAAAAAEAAAABAAAAHHN0c2MAAAAAAAAAAQAAAAEAAAAKAAAAAQAAADxzdHN6AAAAAAAAAAAAAAAKAAACgwAAAAkAAAAKAAAACQAAAAkAAAAJAAAACQAAAAkAAAAJAAAACQAAABRzdGNvAAAAAAAAAAEAAAN7AAAAYnVkdGEAAABabWV0YQAAAAAAAAAhaGRscgAAAAAAAAAAbWRpcmFwcGwAAAAAAAAAAAAAAAAtaWxzdAAAACWpdG9vAAAAHWRhdGEAAAABAAAAAExhdmY2MC4xNi4xMDAAAAAIZnJlZQAAAt1tZGF0AAACcQYF//9t3EXpvebZSLeWLNgg2SPu73gyNjQgLSBjb3JlIDE2NCByMzEwOCAzMWUxOWY5IC0gSC4yNjQvTVBFRy00IEFWQyBjb2RlYyAtIENvcHlsZWZ0IDIwMDMtMjAyMyAtIGh0dHA6Ly93d3cudmlkZW9sYW4ub3JnL3gyNjQuaHRtbCAtIG9wdGlvbnM6IGNhYmFjPTAgcmVmPTMgZGVibG9jaz0xOjA6MCBhbmFseXNlPTB4MToweDExMSBtZT1oZXggc3VibWU9NyBwc3k9MSBwc3lfcmQ9MS4wMDowLjAwIG1peGVkX3JlZj0xIG1lX3JhbmdlPTE2IGNocm9tYV9tZT0xIHRyZWxsaXM9MSA4eDhkY3Q9MCBjcW09MCBkZWFkem9uZT0yMSwxMSBmYXN0X3Bza2lwPTEgY2hyb21hX3FwX29mZnNldD0tMiB0aHJlYWRzPTEgbG9va2FoZWFkX3RocmVhZHM9MSBzbGljZWRfdGhyZWFkcz0wIG5yPTAgZGVjaW1hdGU9MSBpbnRlcmxhY2VkPTAgYmx1cmF5X2NvbXBhdD0wIGNvbnN0cmFpbmVkX2ludHJhPTAgYmZyYW1lcz0wIHdlaWdodHA9MCBrZXlpbnQ9MjUwIGtleWludF9taW49MTAgc2NlbmVjdXQ9NDAgaW50cmFfcmVmcmVzaD0wIHJjX2xvb2thaGVhZD00MCByYz1jcmYgbWJ0cmVlPTEgY3JmPTIzLjAgcWNvbXA9MC42MCBxcG1pbj0wIHFwbWF4PTY5IHFwc3RlcD00IGlwX3JhdGlvPTEuNDAgYXE9MToxLjAwAIAAAAAKZYiED/JigADD7gAAAAVBmjgf6gAAAAZBmlQH+oAAAAAFQZpgP9QAAAAFQZqAP9QAAAAFQZqgP9QAAAAFQZrAP9QAAAAFQZrgP9QAAAAFQZsAO9QAAAAFQZsgN9Q=" type="video/mp4"><source src="data:video/webm;base64,GkXfo59ChoEBQveBAULygQRC84EIQoKEd2VibUKHgQRChYECGFOAZwEAAAAAAAXhEU2bdLpNu4tTq4QVSalmU6yBoU27i1OrhBZUrmtTrIHYTbuMU6uEElTDZ1OsggGETbuMU6uEHFO7a1OsggXL7AEAAAAAAABZAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAVSalmsirXsYMPQkBNgI1MYXZmNjAuMTYuMTAwV0GNTGF2ZjYwLjE2LjEwMESJiECPgAAAAAAAFlSua0CmrgEAAAAAAAA414EBc8WI64WJuDX5R/+cgQAitZyDdW5kiIEAhoVWX1ZQOIOBASPjg4QF9eEA4ImwgRC6gRCagQKuAQAAAAAAAFzXgQJzxYhdZcBx/EfYkZyBACK1nIN1bmSIgQCGhkFfT1BVU1aqg2MuoFa7hATEtACDgQLhkZ+BAbWIQL9AAAAAAABiZIEQY6KTT3B1c0hlYWQBATgBQB8AAAAAABJUw2dA1nNzoGPAgGfImkWjh0VOQ09ERVJEh41MYXZmNjAuMTYuMTAwc3PWY8CLY8WI64WJuDX5R/9nyKFFo4dFTkNPREVSRIeUTGF2YzYwLjMxLjEwMiBsaWJ2cHhnyKFFo4hEVVJBVElPTkSHkzAwOjAwOjAxLjAwMDAwMDAwMABzc9djwItjxYhdZcBx/EfYkWfIokWjh0VOQ09ERVJEh5VMYXZjNjAuMzEuMTAyIGxpYm9wdXNnyKFFo4hEVVJBVElPTkSHkzAwOjAwOjAxLjAwODAwMDAwMAAfQ7Z1Q2XngQCji4IAAIAIC+S5oLyEo6OBAACAEAIAnQEqEAAQAABHCIWFiIWEiAICAAwNYAD+/6tQgKOKggAVgAgHxrMOxqOKggApgAgHxrMOxqOKggA9gAgHxrMOxqOKggBRgAgHxrMOxqOKggBlgAgHxrMOxqOVgQBkALEBAAEQEAAYABhYL/QACAAAo4qCAHmACAfGsw7Go4qCAI2ACAfGsw7Go4qCAKGACAfGsw7Go4qCALWACAfGsw7Go4qCAMmACAfGsw7Go5WBAMgAsQEAARAQABgAGFgv9AAIAACjioIA3YAIB8azDsajioIA8YAIB8azDsajioIBBYAIB8azDsajioIBGYAIB8azDsajioIBLYAIB8azDsajlYEBLACxAQABEBAAGAAYWC/0AAgAAKOKggFBgAgHxrMOxqOKggFVgAgHxrMOxqOKggFpgAgHxrMOxqOKggF9gAgHxrMOxqOKggGRgAgHxrMOxqOVgQGQALEBAAEQEAAYABhYL/QACAAAo4qCAaWACAfGsw7Go4qCAbmACAfGsw7Go4qCAc2ACAfGsw7Go4qCAeGACAfGsw7Go4qCAfWACAfGsw7Go5WBAfQAsQEAARAQABgAGFgv9AAIAACjioICCYAIB8azDsajioICHYAIB8azDsajioICMYAIB8azDsajioICRYAIB8azDsajioICWYAIB8azDsajlYECWACxAQABEBAAGAAYWC/0AAgAAKOKggJtgAgHxrMOxqOKggKBgAgHxrMOxqOKggKVgAgHxrMOxqOKggKpgAgHxrMOxqOKggK9gAgHxrMOxqOVgQK8ALEBAAEQEBRgAGFgv9AAIAAAo4qCAtGACAfGsw7Go4qCAuWACAfGsw7Go4qCAvmACAfGsw7Go4qCAw2ACAfGsw7Go4qCAyGACAfGsw7Go5WBAyAAsQEAARAQABgAGFgv9AAIAACjioIDNYAIB8azDsajioIDSYAIB8azDsajioIDXYAIB8azDsajioIDcYAIB8azDsajioIDhYAIB8azDsajlYEDhACxAQABEBAAGAAYWC/0AAgAAKOKggOZgAgHxrMOxqOKggOtgAgHxrMOxqOKggPBgAgHxrMOxqOKggPVgAgHxrMOxqCToYqCA+kACAfGsw7GdaKEAM3+YBxTu2uRu4+zgQC3iveBAfGCAmDwgRA=" type="video/webm"></video>
+  <div class="cm-nav">
+    <button type="button" id="cmPrev">Back</button>
+    <button type="button" id="cmNext">Next step</button>
+  </div>
+</div>
+
+<script>
+// Resource-constrained critical-path scheduler for recipes.
+// Pure function of (recipe, speed) -> plan. No DOM. Shared by the page and by tests.
+//
+// Activities = steps (heat, timed or not) + tasks (hands-on prep).
+//   id, secs, deps: [{id, lag?}], needs: {hands, ring, oven, griddle, ...}
+//   steps: hands = 1 - attention (how much of a cook the step occupies)
+//   tasks: hands = 1, secs scaled by speed
+//   passive: true  -> a step that occupies equipment but no hands (preheat, water boiling)
+// Capacity from recipe.kit, default {hands:1, ring:2, oven:1, griddle:1}
+(function(root){
+function plan(R, speed, opts){
+  // opts (all optional, used mid-cook by reschedule.js; without them the plan is exactly as before):
+  //   pinned:    {id: {start, end}}  what has really happened - placed first, never moved
+  //   notBefore: {id: secs}          earliest start for an activity (now, or its original planned start)
+  //   shorten:   {id: secs}          prep the cook is assumed to do faster, to catch up
+  //   durations: {id: secs}          hold a task at this length instead of re-working its stretch, so a
+  //                                  projection keeps the lengths the cook was shown (placement order differs)
+  opts = opts || {}; const pin = opts.pinned || {}, notBefore = opts.notBefore || {}, shorten = opts.shorten || {}, fixedDur = opts.durations || {};
+  const kit = Object.assign({ring:3, oven:1, griddle:1, microwave:1, slack:90, prepAhead:900}, R.kit||{});
+  const acts = [];
+  R.steps.forEach((s,i)=>{
+    const dur = s.secs || (s.handsSecs||45);          // untimed steps are short hands-on work
+    const needs = Object.assign({}, s.needs||{});
+    if (needs.hands===undefined) needs.hands = s.passive ? 0 : (s.secs ? 1-(s.attention??1) : 1);
+    acts.push({id:s.id, kind:"step", idx:i, dur, needs, deps:s.deps||[], ref:s});
+  });
+  (R.tasks||[]).forEach((t,i)=>{
+    const needs = Object.assign({hands:1}, t.needs||{});
+    acts.push({id:t.id, kind:"task", idx:i, dur:Math.max(1, Math.round(t.secs*speed) - (shorten[t.id]||0)), needs, deps:t.deps||[], ref:t});
+  });
+  for (const a of acts) if (pin[a.id]) a.dur = Math.max(0, pin[a.id].end - pin[a.id].start);
+  const byId = Object.fromEntries(acts.map(a=>[a.id,a]));
+  for (const a of acts) for (const d of a.deps) if(!byId[d.id]) throw new Error(a.id+" depends on unknown "+d.id);
+
+  // ---- unconstrained CPM: earliest start (forward), latest start (backward) ----
+  const order = topo(acts, byId);
+  for (const a of order){ a.es = 0; for (const d of a.deps) a.es = Math.max(a.es, byId[d.id].ef + (d.lag||0)); a.ef = a.es + a.dur; }
+  const horizon = Math.max(...acts.map(a=>a.ef));
+  const succ = {}; acts.forEach(a=>succ[a.id]=[]); acts.forEach(a=>a.deps.forEach(d=>succ[d.id].push({a, lag:d.lag||0})));
+  for (const a of order.slice().reverse()){ a.lf = horizon; for (const s of succ[a.id]) a.lf = Math.min(a.lf, s.a.ls - s.lag); a.ls = a.lf - a.dur; }
+
+  // ---- serial schedule generation: place by latest-start priority, earliest feasible time ----
+  // Hands model: steps carry hands = 1-attention (a stir-constantly step is 1, a simmer is 0).
+  // Steps may not overlap beyond 1 hand in total. A task needs a whole cook, so it can't overlap
+  // another task, and while it runs alongside steps using h hands it stretches by 1/(1-h).
+  const pri = order.slice().sort((x,y)=> (x.ls-y.ls) || (x.ef-y.ef) || (x.kind===y.kind ? x.idx-y.idx : (x.kind==="step"?-1:1)));
+  const placed = [];
+  for (const a of acts) if (pin[a.id]) { a.pinned = true; a.start = pin[a.id].start; a.end = pin[a.id].end; a.durSched = a.end - a.start; placed.push(a); }
+  const over = (t0,t1,f) => placed.filter(p=>f(p) && p.start<t1 && p.end>t0);
+  const stepHandsAt = (x) => over(x,x+1e-9,p=>p.kind==="step").reduce((s,p)=>s+(p.needs.hands||0),0);
+  const equipOk = (a,t,dur) => {
+    for (const key of Object.keys(a.needs)){ if(key==="hands"||!a.needs[key]) continue;
+      const cap = kit[key] ?? 1; const pts=[t, ...placed.filter(p=>p.start>t&&p.start<t+dur).map(p=>p.start)];
+      for (const x of pts){ const load=over(x,x+1e-9,p=>p.needs[key]).reduce((s,p)=>s+p.needs[key],0); if(load+a.needs[key]>cap+1e-9) return false; } }
+    return true;
+  };
+  const tryPlace = (a,t) => {
+    if (a.kind==="step"){
+      if(!equipOk(a,t,a.dur)) return null;
+      const pts=[t, ...placed.filter(p=>p.kind==="step"&&p.start>t&&p.start<t+a.dur).map(p=>p.start)];
+      for (const x of pts) if (stepHandsAt(x)+(a.needs.hands||0) > 1+1e-9) return null;
+      return a.dur;
+    }
+    // task: no other task may overlap; stretch by the hands the running steps take
+    if (fixedDur[a.id] != null) { const d = Math.max(1, fixedDur[a.id] - (shorten[a.id]||0));
+      if (over(t,t+d,p=>p.kind==="task").length || !equipOk(a,t,d)) return null; return d; }
+    let dur=a.dur, end=t+dur, guard=0;
+    while(guard++<8){ if(over(t,end,p=>p.kind==="task").length) return null;
+      const pts=[t, ...placed.filter(p=>p.kind==="step"&&p.start>t&&p.start<end).map(p=>p.start)];
+      let h=0; for(const x of pts) h=Math.max(h, stepHandsAt(x)); if(h>=1-1e-9) return null;
+      const d2=Math.round(a.dur/(1-h)); if(Math.abs(d2-dur)<1) { dur=d2; break; } dur=d2; end=t+dur; }
+    if(!equipOk(a,t,dur)) return null;
+    return dur;
+  };
+  for (const a of pri){ if (a.pinned) continue;
+    let t = notBefore[a.id] || 0; for (const d of a.deps) t = Math.max(t, byId[d.id].end + (d.lag||0));
+    const cands = [...new Set([t, ...placed.flatMap(p=>[p.start,p.end]).filter(e=>e>t)])].sort((x,y)=>x-y);
+    let dur=null; for (const c of cands){ dur=tryPlace(a,c); if(dur!==null){ a.start=c; break; } }
+    if(dur===null){ a.start = Math.max(t, ...placed.map(p=>p.end)); dur=a.dur; }
+    a.end = a.start + dur; a.durSched = dur; placed.push(a);
+  }
+  // ---- right-shift pass: activities marked fresh (must be eaten soon after) move as late as feasible ----
+  const succ2 = {}; acts.forEach(a=>succ2[a.id]=[]); acts.forEach(a=>a.deps.forEach(d=>succ2[d.id].push({a, lag:d.lag||0})));
+  // fresh things keep `slack` seconds in hand; other prep with a long wait ahead of it is pulled to within `prepAhead`
+  // of when it's needed, so a cabbage isn't shredded three hours before a roast comes out
+  const fresh = placed.filter(a=>!a.pinned).filter(a=>a.ref.fresh || (a.kind==="task" && !a.ref.early)).sort((x,y)=>y.start-x.start);
+  for (const a of fresh){
+    const margin = a.ref.fresh ? (kit.slack ?? 90) : (kit.prepAhead ?? 900);
+    const latest = Math.min(...succ2[a.id].map(s=>s.a.start - s.lag)) - a.durSched - margin;
+    if (!isFinite(latest) || latest<=a.start) continue;
+    const i = placed.indexOf(a); placed.splice(i,1);
+    const cands=[latest, ...placed.flatMap(p=>[p.start,p.end,p.start-a.durSched]).filter(e=>e<latest&&e>a.start)].sort((x,y)=>y-x);   // p.start-dur: finish just as the next thing begins
+    let done=false; for (const c of cands){ const d=tryPlace(a,c); if(d!==null && c+d<=latest+a.durSched+1e-9){ a.start=c; a.end=c+d; a.durSched=d; done=true; break; } }
+    placed.push(a);
+  }
+  const makespan = Math.max(...acts.map(a=>a.end));
+  // Float = spare time before the meal is late (total float), from a backward pass over the scheduled
+  // timeline: each activity may end as late as its successors' latest starts allow, the last ones at
+  // makespan. freeFloat (gap to the next activity's scheduled start) is kept for reference.
+  // Approximation: shifting an activity by its float is not re-checked against equipment or hands.
+  for (const a of order.slice().reverse()){
+    a.lateEnd = makespan; for (const s of succ[a.id]) a.lateEnd = Math.min(a.lateEnd, s.a.lateStart - s.lag);
+    a.lateStart = a.lateEnd - a.durSched;
+    a.freeFloat = Math.max(0, Math.min(makespan, ...succ[a.id].map(s=>s.a.start - s.lag)) - a.end);
+    a.float = Math.max(0, a.lateEnd - a.end); a.critical = a.float < 1;
+  }
+  return {acts, byId, makespan, kit};
+}
+function topo(acts, byId){
+  const seen=new Set(), out=[];
+  const visit=(a,stack)=>{ if(seen.has(a.id)) return; if(stack.has(a.id)) throw new Error("cycle at "+a.id); stack.add(a.id); a.deps.forEach(d=>visit(byId[d.id],stack)); stack.delete(a.id); seen.add(a.id); out.push(a); };
+  acts.forEach(a=>visit(a,new Set())); return out;
+}
+// Derived views for the page
+function views(P, R){
+  const steps = P.acts.filter(a=>a.kind==="step").sort((x,y)=>x.start-y.start || x.idx-y.idx);
+  const tasks = P.acts.filter(a=>a.kind==="task").sort((x,y)=>x.start-y.start || x.idx-y.idx);
+  // "Before the heat" = before anything at all is running, oven included. Once any step is on,
+  // a task belongs to the step it runs during: the latest-starting timed step covering it,
+  // preferring one that leaves the hands free; failing that, the next hands-on step.
+  const firstStart = Math.min(...steps.map(s=>s.start));
+  const before=[]; const inside = Object.fromEntries(steps.map(s=>[s.id,[]]));
+  for (const t of tasks){
+    if (t.start < firstStart - 1e-9){ before.push(t); continue; }
+    const covering = steps.filter(s=>s.ref.secs && s.start<=t.start+1e-9 && s.end>t.start);
+    let host = covering.filter(s=>!s.ref.passive).sort((x,y)=>y.start-x.start)[0]
+            || covering.sort((x,y)=>y.start-x.start)[0]
+            || steps.filter(s=>!s.ref.passive && s.start>=t.start).sort((x,y)=>x.start-y.start)[0]
+            || steps.filter(s=>!s.ref.passive && s.start<t.start).sort((x,y)=>y.start-x.start)[0];
+    if (host) inside[host.id].push(t); else before.push(t);
+  }
+  // cues: a timed step that starts while another timed step is running, and is not simply "next" after a timer that just ended
+  const cues = {};
+  for (const s of steps){ if(!s.ref.secs || s.ref.passive) continue;
+    if (s.deps.some(d=>{ const p=P.byId[d.id]; return p.kind==="step" && p.ref.secs && (d.lag||0)>=0 && s.start - (p.end+(d.lag||0)) < 180 && s.start >= p.end+(d.lag||0)-5; })) continue;   // follows that timer, give or take a short task
+    const running = steps.filter(r=>r!==s && r.ref.secs && !r.ref.passive && r.start<s.start && r.end>s.start+30);
+    if (!running.length) continue;
+    const r = running.sort((x,y)=>(y.end-y.start)-(x.end-x.start))[0];
+    const rem = Math.round(r.end - s.start); if (rem > (r.end-r.start) - 60) continue;   // starts together with r - no cue needed
+    cues[s.id] = {ref:r.id, remaining:rem, buffer: s.ref.buffer ?? 45};
+  }
+  return {steps, tasks, before, inside, cues, firstStart};
+}
+root.RecipePlan = {plan, views};
+})(typeof window!=="undefined" ? window : globalThis);
+
+</script>
+<script>
+// Re-planning mid-cook. Pure: (recipe, speed, the plan at the start, what has happened, now) -> projected plan.
+// No DOM, no clock, no storage: the page passes everything in, so Node tests can drive it.
+// Rules: KITCHEN_BRAIN_PLAN.md section 3 with the amendments in section 0.
+//
+// session.acts: {id: {start, end, state}} in seconds since cooking started (the first timer).
+//   state "done": start and end are fact. "running" / "paused": start is fact, end is the projected finish.
+// What counts as late: a timed step whose timer has not started by its planned time. Prep and untimed
+// steps have no button, so they are assumed on track until a step that needs them starts; at that moment
+// they are known to have finished (the inference rule).
+(function(root){
+const ELASTICITY = 0.5;    // share of a delay the meal slides by; the rest the cook is assumed to claw back
+const TOL_FRAC = 0.10;     // a late start within 10% of the step's length is overlooked...
+const TOL_CAP = 60;        // ...but never more than 60 s
+const LEDGER = 60;         // once overlooked seconds add up past this, they all count again
+const COMPRESS = 0.20;     // the most any one prep task can be hurried
+
+// The plan's section 3 formula for one delay, kept as the expected answer for tests and as documentation.
+function elastic(d, T, F){
+  const tolerance = Math.min(TOL_FRAC*T, TOL_CAP), excess = Math.max(0, d-tolerance);
+  const eaten = Math.min(excess, F), residual = excess-eaten, slide = ELASTICITY*residual;
+  return {tolerance, excess, eaten, residual, slide, catchUp: residual-slide};
+}
+
+function reschedule(R, speed, base, session, now){
+  const RP = root.RecipePlan, facts = session.acts || {}, pinned = {};
+  const deps = id => (R.steps.find(s=>s.id===id) || (R.tasks||[]).find(t=>t.id===id) || {}).deps || [];
+  // A step can't start until what it waits for has finished: a timer still 'running' when something that
+  // needs it has started is over, at that start. (Not for lag<0 links, which are meant to overlap.)
+  const closedAt = {};
+  for (const [id, s] of Object.entries(facts)) for (const d of deps(id)) if ((d.lag||0) >= 0)
+    closedAt[d.id] = Math.min(closedAt[d.id] ?? Infinity, s.start);
+  for (const [id, s] of Object.entries(facts)) {
+    if (s.state==="done") pinned[id] = {start: s.start, end: s.end};
+    else if (closedAt[id] != null) pinned[id] = {start: s.start, end: Math.max(s.start, closedAt[id])};
+    else pinned[id] = {start: s.start, end: Math.max(s.end, now)}; }
+  // Inference: anything a started activity depends on has finished by the time it started.
+  const infer = (id, by) => { for (const d of deps(id)) { if (pinned[d.id]) continue;
+    const b = base.byId[d.id], end = Math.min(b.end, by), start = Math.min(b.start, end - b.durSched);
+    pinned[d.id] = {start, end, inferred: true}; infer(d.id, start); } };
+  for (const id of Object.keys(facts)) infer(id, facts[id].start);
+  // Nothing moves earlier than planned (early time is banked); a timer not yet started can't start in the past.
+  const notBefore = {};
+  for (const a of base.acts) if (!pinned[a.id]) notBefore[a.id] = (a.kind==="step" && a.ref.secs) ? Math.max(a.start, now) : a.start;
+
+  // Prep keeps the length the cook was shown: the scheduler stretches a task that overlaps hands-on work,
+  // and with pinned steps placed first that stretch can differ from the plan's for no real reason.
+  const durations = {}; for (const a of base.acts) if (a.kind==="task" && !pinned[a.id]) durations[a.id] = a.durSched;
+  const raw = RP.plan(R, speed, {pinned, notBefore, durations});
+  const rawSlide = Math.max(0, raw.makespan - base.makespan);
+  // Overlooked drift. A timer's own delay is measured from when it could have started (its planned time, or
+  // later if what it waits for ran late), so delays inherited down a chain are not counted twice. Only the
+  // part beyond the step's spare time touches dinner, and up to the step's tolerance of that is forgiven.
+  let ledger = 0;
+  for (const [id, s] of Object.entries(facts)) { const b = base.byId[id];
+    if (!b || b.kind!=="step" || !b.ref.secs) continue;
+    let due = b.start; for (const d of b.deps) due = Math.max(due, raw.byId[d.id].end + (d.lag||0));
+    const own = Math.max(0, s.start - due);
+    ledger += Math.min(Math.min(TOL_FRAC*b.dur, TOL_CAP), Math.max(0, own - b.float)); }
+  const excused = ledger > LEDGER ? 0 : ledger;
+  const residual = Math.max(0, rawSlide - excused);
+  // Catch-up only from prep still ahead on the critical path; heat can't be hurried, prep with spare time doesn't help.
+  const ahead = raw.acts.filter(a=>a.kind==="task" && !a.pinned && a.start >= now && a.critical);
+  const capacity = ahead.reduce((s,a)=>s + COMPRESS*a.durSched, 0), want = residual*(1-ELASTICITY);
+  let proj = raw;
+  if (want > 0 && capacity > 0) { const share = Math.min(1, want/capacity), shorten = {};
+    for (const a of ahead) shorten[a.id] = Math.round(COMPRESS*a.durSched*share);
+    proj = RP.plan(R, speed, {pinned, notBefore, durations, shorten}); }
+  const slide = Math.max(0, proj.makespan - base.makespan - excused);
+  return {plan: proj, raw, plateUp: base.makespan + slide, slide, ledger, excused,
+          catchUp: raw.makespan - proj.makespan, pinned};
+}
+
+root.RecipeSession = {reschedule, elastic, ELASTICITY, TOL_FRAC, TOL_CAP, LEDGER, COMPRESS};
+})(typeof window!=="undefined" ? window : globalThis);
+
+</script>
+<script>
+const SLUG = "chicken-thigh-stew";
+const BASE = 4;
+const ING = [{"id": "0001", "name": "boneless, skinless chicken thighs", "amt": 5, "unit": "", "grams": 550}, {"id": "0002", "name": "olive oil or butter", "amt": 1, "unit": "tbsp", "pantry": true}, {"id": "0003", "name": "onion", "amt": 1, "unit": ""}, {"id": "0004", "name": "carrots", "amt": 2, "unit": ""}, {"id": "0005", "name": "celery sticks", "amt": 2, "unit": ""}, {"id": "0006", "name": "garlic cloves", "amt": 4, "unit": ""}, {"id": "0015", "name": "white wine vinegar", "amt": 2, "unit": "tbsp", "pantry": true}, {"id": "0007", "name": "plain flour", "amt": 1, "unit": "tbsp", "pantry": true}, {"id": "0008", "name": "chicken stock", "amt": 750, "unit": "ml"}, {"id": "0009", "name": "potatoes", "amt": 500, "unit": "g"}, {"id": "0010", "name": "courgette", "amt": 1, "unit": ""}, {"id": "0011", "name": "herbes de Provence", "amt": 1, "unit": "tsp", "pantry": true}, {"id": "0012", "name": "bay leaf", "amt": 1, "unit": "", "pantry": true}, {"id": "0016", "name": "double cream", "amt": 3, "unit": "tbsp"}, {"id": "0017", "name": "Dijon mustard", "amt": 1, "unit": "tsp", "pantry": true}, {"id": "0013", "name": "salt", "amt": 0.5, "unit": "tsp", "pantry": true}, {"id": "0014", "name": "black pepper", "amt": 0.25, "unit": "tsp", "pantry": true}];
+const STEPS = [{"id": "brown", "title": "Brown the chicken", "secs": 360, "attention": 0.5, "needs": {"ring": 1}, "deps": [{"id": "t-thighs"}], "uses": ["0001", "0002"], "text": "Oil into a large casserole over a medium-high heat; chicken in, in batches, 2 - 3 minutes a side until golden. Don't crowd the pan or it steams rather than colours. Out onto a plate."}, {"id": "soften", "title": "Soften the veg", "secs": 480, "attention": 0.8, "needs": {"ring": 1}, "deps": [{"id": "brown"}, {"id": "t-onion"}, {"id": "t-carrot"}], "uses": ["0003", "0004", "0005", "0006"], "text": "Heat down to medium. Onion, carrot and celery into the same pan; cook, stirring now and then, until the onion is soft and translucent. Garlic in for the last minute."}, {"id": "vinegar", "title": "Vinegar, then flour", "secs": 120, "attention": 0, "needs": {"ring": 1}, "deps": [{"id": "soften"}, {"id": "t-garlic"}, {"id": "t-measure"}], "uses": ["0015", "0007"], "text": "Heat up, vinegar in, let it boil off almost completely - under a minute. Flour in, another minute, stirring, to lose the raw taste."}, {"id": "base", "title": "Make the base", "secs": null, "handsSecs": 60, "needs": {"ring": 1}, "deps": [{"id": "vinegar"}, {"id": "t-stock"}], "uses": ["0008", "0011", "0012", "0013", "0014"], "text": "Stock in gradually, stirring to lift the browned bits off the bottom of the pan. Herbes de Provence, bay leaf and the rest of the salt and pepper."}, {"id": "simmer", "title": "Simmer", "secs": 1500, "attention": 1, "needs": {"ring": 1}, "deps": [{"id": "base"}, {"id": "t-potato"}], "uses": ["0001", "0009"], "text": "Chicken and any juices back in with the potatoes. Bring to a gentle simmer, lid on, cook until the potatoes are just tender."}, {"id": "courgette", "title": "Courgette, then cream", "secs": 600, "attention": 1, "needs": {"ring": 1}, "deps": [{"id": "simmer"}, {"id": "t-courg"}], "uses": ["0010", "0016", "0017"], "text": "Courgette in, lid slightly ajar, simmer until soft but still holding its shape and the sauce has thickened. Fish out the bay leaf. Serve the children's bowls, then fold the mustard cream through what's left. Taste for salt.", "label": "courgette, cream"}, {"id": "serve", "title": "Serve", "secs": null, "handsSecs": 90, "deps": [{"id": "courgette"}, {"id": "t-cream"}, {"id": "t-table"}], "uses": [], "text": "Bowls to the table with bread for mopping up."}];
+const TASKS = [{"id": "t-thighs", "text": "Cut each thigh into three; season with a little salt and pepper", "secs": 120, "deps": [], "label": "chicken prep", "uses": ["0001", {"id": "0013", "note": "a little salt"}, {"id": "0014", "note": "a little pepper"}]}, {"id": "t-onion", "text": "Chop the onion", "secs": 60, "deps": [], "label": "onion prep", "uses": ["0003"]}, {"id": "t-carrot", "text": "Carrots into thick coins; slice the celery", "secs": 90, "deps": [], "label": "carrot, celery prep", "uses": ["0004", "0005"]}, {"id": "t-garlic", "text": "Finely chop the garlic, keep it separate", "secs": 60, "deps": [], "label": "garlic prep", "uses": ["0006"]}, {"id": "t-measure", "text": "Measure the vinegar and flour so they're to hand", "secs": 30, "deps": [], "label": "vinegar, flour out", "uses": ["0015", "0007"]}, {"id": "t-stock", "text": "Make up the stock", "secs": 60, "deps": [], "label": "stock made up", "uses": ["0008"]}, {"id": "t-potato", "text": "Peel the potatoes and cut into 3 cm chunks", "secs": 240, "deps": [], "label": "potato prep", "uses": ["0009"]}, {"id": "t-courg", "text": "Halve the courgette lengthways and slice thickly", "secs": 60, "deps": [], "label": "courgette prep", "uses": ["0010"]}, {"id": "t-cream", "text": "Stir the Dijon into the cream", "secs": 30, "deps": [], "label": "mustard cream", "uses": ["0016", "0017"]}, {"id": "t-table", "text": "Lay the table; bread out; wash the board and knife", "secs": 210, "deps": [], "fresh": true, "label": "table and bread"}];
+const KIT = {"ring": 3, "oven": 1, "griddle": 1};// ---------- events: one channel for "something happened" ----------
+// The session announces every fact it records and every re-plan here. Anything that has to react listens
+// instead of being called from wherever the change happened, so a new call site can never miss a reaction.
+// Listeners today: the timeline. Planned: auto-start (Phase 4), alert levels (5), the phone's own alarms (6b).
+//   cook-started  {anchor}                    the first timer started
+//   step-started  {id, k, at, resumed}        a timer started or resumed (at: seconds since the cook began)
+//   step-paused   {id, k, at}
+//   step-finished {id, k, at}                 a timer reached zero, or Next on an untimed step mid-cook
+//   step-reset    {id, k}
+//   cook-finished {}
+//   plan-updated  {plan, plateUp}             the projection was refreshed (every few seconds while cooking)
+//   plan-shifted  {before, after}             the dinner time shown to the cook changed (ms timestamps)
+// From the timers and the detectors, for alerts.js to decide how loudly to say them (plan Phase 5):
+//   timer-warning {k, secs}                   a timer's soft-alarm moment (secs before its end)
+//   timer-ended   {k, away?}                  a timer reached zero (away: while the page was closed)
+//   cue-warning   {k, of, secs} / cue-now {k, of}   a linked step is due / due now
+//   step-due-soon {k, in}                     the next timer is due, after 2 min or more hands-free
+//   handsfree-started {from, to, suggestion}  a hands-free stretch of 2 min or more has begun
+//   alerted       {level, text}               an alert was given (urgent, heads or soft)
+const LISTENERS = {};
+function on(name, fn){ (LISTENERS[name] ??= []).push(fn); }
+function emit(name, detail){ for (const fn of LISTENERS[name] || []) { try { fn(detail || {}); } catch(e) { console.error(name, e); } } }
+// ---------- settings: kept on this device ----------
+// Shared by every recipe page opened from the same web address (pages opened as files may each keep their
+// own until the app is hosted). Changes are announced as "settings-changed"; the page applies them.
+const SETTINGS_KEY = "kb-settings";
+const SETTINGS_DEFAULT = {speed: 1.0, servings: null, sound: true, volume: 0.8, vibrate: true, autostart: false, warnShift: 0};
+const SETTINGS = (()=>{ try { return Object.assign({}, SETTINGS_DEFAULT, JSON.parse(localStorage.getItem(SETTINGS_KEY)) || {}); }
+                        catch(e) { return Object.assign({}, SETTINGS_DEFAULT); } })();
+function saveSettings(){ try { localStorage.setItem(SETTINGS_KEY, JSON.stringify(SETTINGS)); } catch(e) {} emit("settings-changed", SETTINGS); }
+function buzz(pattern){ if (SETTINGS.vibrate && navigator.vibrate) navigator.vibrate(pattern); }
+const SPEED_CHOICES = [["Quick", 0.8], ["Average", 1.0], ["Unhurried", 1.4]];
+const WARN_SHIFTS = [[-30, "30 s later"], [-15, "15 s later"], [0, "As planned"], [15, "15 s earlier"], [30, "30 s earlier"], [60, "1 min earlier"], [120, "2 min earlier"]];
+
+const SETTINGS_CSS = `
+.kb-set{display:flex;flex-direction:column;gap:1.4rem;max-width:560px}
+.kb-set .row{display:flex;flex-direction:column;gap:.5rem}
+.kb-set .row > b{font-family:var(--display,Georgia,serif);font-style:italic;font-weight:600;font-size:18px}
+.kb-set .row > small{font-size:14px;color:var(--slate,#7A8B9C);max-width:46ch}
+.kb-set .seg{display:flex;flex-wrap:wrap;gap:.5rem}
+.kb-set .seg button{min-height:56px;padding:.6rem 1rem;border-radius:999px;border:2px solid var(--navy,#0F2138);background:none;font:inherit;font-weight:600;cursor:pointer}
+.kb-set .seg button.on{background:var(--navy,#0F2138);color:var(--cream,#F5EBE5)}
+.kb-set .switch{display:flex;justify-content:space-between;align-items:center;gap:1rem;min-height:56px;width:100%;padding:.6rem 1rem;border-radius:16px;border:2px solid var(--navy,#0F2138);background:none;font:inherit;font-weight:600;text-align:left;cursor:pointer}
+.kb-set .switch i{font-style:normal;font-family:var(--fig,monospace);padding:.25rem .7rem;border-radius:999px;background:var(--navy-wash,rgba(15,33,56,.08))}
+.kb-set .switch[aria-checked="true"] i{background:var(--navy,#0F2138);color:var(--cream,#F5EBE5)}
+.kb-set input[type=range]{width:100%;min-height:44px;accent-color:var(--coral,#ED8767)}
+`;
+function renderSettings(box, opts){
+  opts = opts || {};
+  if (!document.getElementById("kb-set-css")) { const st = document.createElement("style"); st.id = "kb-set-css"; st.textContent = SETTINGS_CSS; document.head.append(st); }
+  box.innerHTML = ""; const form = document.createElement("div"); form.className = "kb-set"; box.append(form);
+  const redraw = ()=>renderSettings(box, opts), set = (k, v)=>{ SETTINGS[k] = v; saveSettings(); redraw(); };
+  const row = (label, note)=>{ const r = document.createElement("div"); r.className = "row"; const b = document.createElement("b"); b.textContent = label; r.append(b);
+    if (note) { const s = document.createElement("small"); s.textContent = note; r.append(s); } form.append(r); return r; };
+  const seg = (r, choices, current, onPick)=>{ const g = document.createElement("div"); g.className = "seg";
+    for (const [label, value] of choices) { const bt = document.createElement("button"); bt.type = "button"; bt.textContent = label;
+      bt.classList.toggle("on", value === current); bt.setAttribute("aria-pressed", value === current); bt.onclick = ()=>onPick(value); g.append(bt); }
+    r.append(g); return g; };
+  const sw = (r, key, label)=>{ const bt = document.createElement("button"); bt.type = "button"; bt.className = "switch"; bt.setAttribute("role", "switch");
+    bt.setAttribute("aria-checked", !!SETTINGS[key]); bt.dataset.key = key;
+    const t = document.createElement("span"); t.textContent = label; const i = document.createElement("i"); i.textContent = SETTINGS[key] ? "On" : "Off";
+    bt.append(t, i); bt.onclick = ()=>set(key, !SETTINGS[key]); r.append(bt); return bt; };
+
+  seg(row("Who usually cooks", "Sets how long prep takes in the plan. Each recipe page can still change it for one cook."), SPEED_CHOICES, SETTINGS.speed, v=>set("speed", v));
+  const sv = row("Usual servings", "Pages open scaled to this. 'Recipe's own' uses each recipe's number.");
+  const svChoices = [["Recipe's own", null], ["1", 1], ["2", 2], ["3", 3], ["4", 4], ["5", 5], ["6", 6], ["8", 8]];
+  seg(sv, svChoices, SETTINGS.servings, v=>set("servings", v));
+  const snd = row("Sound"); sw(snd, "sound", "Alarms and chimes");
+  if (SETTINGS.sound) { const vol = document.createElement("input"); vol.type = "range"; vol.min = "0.1"; vol.max = "1"; vol.step = "0.1"; vol.value = SETTINGS.volume;
+    vol.setAttribute("aria-label", "Volume"); vol.oninput = ()=>{ SETTINGS.volume = +vol.value; saveSettings(); };
+    snd.append(vol);
+    if (opts.test) { const tb = document.createElement("button"); tb.type = "button"; tb.className = "switch"; tb.textContent = "Hear the alarms at this volume"; tb.onclick = opts.test; snd.append(tb); } }
+  sw(row("Vibration"), "vibrate", "Buzz on alarms and taps");
+  sw(row("Start timers automatically", "After Next step, that step's timer starts by itself after 15 seconds, unless you tap Not yet. Hands-off steps like preheating ask first, since the page can't know the oven is on. Linked timers always start on their cue."), "autostart", "Auto-start on Next step");
+  seg(row("Warn me before a timer ends", "Moves every soft alarm earlier or later. Steps under two minutes get only the end alarm."), WARN_SHIFTS, SETTINGS.warnShift, v=>set("warnShift", v));
+}
+
+
+// ---------- scaling ----------
+let servings = SETTINGS.servings || BASE;   // the device's usual servings, if set
+const rich = (el, s) => { const esc=String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;"); el.innerHTML = esc.replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>").replace(/\*(.+?)\*/g,"<em>$1</em>"); return el; };
+const mmss = s => { s=Math.max(0,Math.round(s)); return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0"); };
+const mins = s => { const m=Math.round(s/60); return m+" min"; };
+function fmt(n){ if (Number.isInteger(n)) return String(n); const r=Math.round(n*4)/4, w=Math.floor(r), f={0.25:"¼",0.5:"½",0.75:"¾"}[r-w]; return f?(w||"")+f:(Math.round(n*10)/10).toString(); }
+function qty(i, amt){ let a=(amt??i.amt)*servings/BASE; if(i.unit==="ml"||i.unit==="g"){ const r=a<50?5:10; a=Math.max(r,Math.round(a/r)*r); } return fmt(a)+(i.unit?" "+i.unit:""); }
+
+// ---------- amounts per step and task ----------
+// A `uses` entry is an ingredient id (plain), {id, amt} (a measured portion) or {id, note} (a described
+// portion: "a knob of butter"). Prep tasks show the whole amount, because that is when it comes out of the
+// cupboard. In a step, a plain use is the whole amount unless the ingredient is split, in which case it is
+// "the rest". A described portion, or a rest that can't be worked out, reminds the cook of the total.
+const ING_BY_ID = Object.fromEntries(ING.map(i=>[i.id,i]));
+const SPLIT = {};   // id -> {measured: sum of measured portions, vague: any described portion}
+for (const a of [...STEPS, ...TASKS]) for (const u of (a.uses||[])) { if (typeof u==="string") continue;
+  const s = SPLIT[u.id] ??= {measured:0, vague:false}; if (u.amt!=null) s.measured+=u.amt; else s.vague=true; }
+// Ingredient names are written for the list ("coriander, bunch", "red onion (for the sauce, full batch)").
+// In a step the short form reads better, keeping a container word: "½ bunch coriander", "1 tin chickpeas".
+const CONTAINERS = ["bunch","tin","jar","slices","thick slices","sprigs","ball","bag","pack"];
+function shortName(i){
+  const paren = (i.name.match(/\(([^)]*)\)/)||[])[1], head = i.name.replace(/\s*\([^)]*\)/g,"");
+  const [name, ...rest] = head.split(",").map(s=>s.trim());
+  const box = CONTAINERS.includes(rest[0]) ? rest[0] : CONTAINERS.includes(paren) ? paren : "";
+  return {name, box};
+}
+function amountOf(i, amt){   // "4 slices Parma ham", "1 lemon" (from "lemons" split down to one), "300 ml dry cider"
+  const {name, box} = shortName(i), a = (amt??i.amt)*servings/BASE;
+  let n = name; if (!box && !i.unit && a<=1 && i.amt>1 && /[^s]s$/.test(n)) n = n.slice(0,-1);
+  return [qty(i,amt), box, n].filter(Boolean).join(" ");
+}
+function useLine(u, isTask){
+  const id = typeof u==="string" ? u : u.id, i = ING_BY_ID[id]; if(!i) return null;
+  const name = shortName(i).name, out = {pantry:!!i.pantry, remind:false};
+  if (typeof u!=="string" && u.amt!=null) out.text = amountOf(i,u.amt);
+  else if (typeof u!=="string") { out.text = u.note+" (from "+amountOf(i)+" in all)"; out.remind = true; }
+  else if (isTask || !SPLIT[id]) out.text = amountOf(i);
+  else { const rest = i.amt - SPLIT[id].measured;
+    if (!SPLIT[id].vague && rest > 1e-9) out.text = amountOf(i,rest)+" (the rest)";
+    else { out.text = "the rest of the "+name+" ("+amountOf(i)+" in all)"; out.remind = true; } }
+  return out;
+}
+function usesBlock(a, isTask, cls){
+  const lines = (a.uses||[]).map(u=>useLine(u,isTask)).filter(Boolean); if(!lines.length) return null;
+  const w=document.createElement("div"); w.className=cls;
+  for (const l of lines){ const s=document.createElement("span"); s.textContent=l.text; if(l.pantry) s.classList.add("pantry"); if(l.remind){ s.classList.add("remind"); s.title="Shared with other steps - check the ingredients list"; } w.append(s); }
+  return w;
+}
+function renderIngs(){
+  document.getElementById("srv").textContent = servings+(servings===1?" serving":" servings");
+  const ul=document.getElementById("ings"); ul.innerHTML="";
+  for (const i of ING){ const li=document.createElement("li"); if(i.pantry) li.className="pantry";
+    const q=document.createElement("span"); q.className="q"; q.textContent=qty(i);
+    const n=document.createElement("span"); n.textContent=i.name+(i.grams?" (about "+Math.round(i.grams*servings/BASE/10)*10+" g)":""); li.append(q,n); ul.append(li); }
+  document.getElementById("dec").disabled = servings<=1;
+  if (cm.classList.contains("on")) showStep(cur);
+}
+document.getElementById("inc").onclick=()=>{servings=Math.min(12,servings+1);renderIngs();renderSteps();};
+document.getElementById("dec").onclick=()=>{servings=Math.max(1,servings-1);renderIngs();renderSteps();};
+
+// ---------- plan ----------
+const SPEEDS=[["Quick",0.8],["Average",1.0],["Unhurried",1.4]];
+let speed=SETTINGS.speed, PLAN=null, VIEW=null, ORDER=[];   // ORDER: data indices of STEPS in scheduled order
+const R = {steps:STEPS, tasks:TASKS, kit:KIT};
+function replan(){ PLAN=RecipePlan.plan(R, speed); VIEW=RecipePlan.views(PLAN, R); ORDER=VIEW.steps.map(s=>s.idx); }
+function NN(i){ return String(ORDER.indexOf(i)+1).padStart(2,"0"); }   // display number from data index
+const act = i => PLAN.byId[STEPS[i].id];
+function renderSpeed(){
+  const o=document.getElementById("speedOpts"); o.innerHTML="";
+  SPEEDS.forEach(([n,f])=>{ const b=document.createElement("button"); b.type="button"; b.textContent=n; b.classList.toggle("on",f===speed); b.onclick=()=>{speed=f; renderAll();}; o.append(b); });
+  document.getElementById("speedFac").textContent="prep \u00d7 "+speed.toFixed(1);
+}
+function taskLine(t){ const li=document.createElement("li"); rich(li,t.ref.text); const i=document.createElement("i"); const s=t.durSched; i.textContent=(s>=60?Math.round(s/60)+" min":s+" s"); li.append(i); const u=usesBlock(t.ref,true,"need"); if(u) li.append(u); return li; }
+function mwBlock(items, cls, label){ const w=document.createElement("div"); w.className=cls; const b=document.createElement("b"); b.textContent=label; const ul=document.createElement("ul"); items.forEach(t=>ul.append(taskLine(t))); w.append(b,ul); return w; }
+
+// ---------- timings overview: the critical path ----------
+function buildTimings(){
+  const ul=document.createElement("ul"); ul.className="timings";
+  for (const s of VIEW.steps){ if(!s.ref.secs) continue;
+    const li=document.createElement("li"); if(s.critical) li.className="crit";
+    const n=document.createElement("span"); n.className="n"; n.textContent=NN(s.idx)+" /";
+    const d=document.createElement("div"); const t=document.createElement("span"); t.className="t"; t.textContent=mmss(s.ref.secs);
+    d.append(t, s.ref.title + (s.critical? "" : "  - "+mins(s.float)+" of float"));
+    const c=VIEW.cues[s.id]; if(c){ const cu=document.createElement("span"); cu.className="cue"; cu.textContent="starts when "+NN(PLAN.byId[c.ref].idx)+" "+PLAN.byId[c.ref].ref.title.toLowerCase()+" has "+mmss(c.remaining)+" left  (alarm "+c.buffer+" s before)"; d.append(cu); }
+    li.append(n,d); ul.append(li);
+  }
+  return ul;
+}
+// ---------- timeline ----------
+// Draws the cook as it is. Before cooking: the plan. Once cooking: the projection from the session - done
+// bars where they really happened (with a tick), the running bar filling, to-do bars where the projection
+// now expects them, and a faint ghost of the original plan behind anything that has moved.
+// Fill says state (solid + tick: done; filling: running; outline: to do). Colour says urgency
+// (wine: no spare time; coral: hands on with spare; slate: passive). Never colour alone.
+let cookStart=null;
+function freeGaps(P){
+  // intervals where no task runs and running steps leave the hands free (needs.hands == 0)
+  P = P || PLAN;
+  const ev=[]; P.acts.forEach(a=>{ const h=a.kind==="task"?1:(a.needs.hands||0); if(h>0){ ev.push([a.start,h]); ev.push([a.end,-h]); } });
+  ev.sort((x,y)=>x[0]-y[0]||x[1]-y[1]); const gaps=[]; let load=0, t0=0;
+  for (const [t,dh] of ev){ if(load<=1e-9 && t>t0+59) gaps.push([t0,t]); load+=dh; if(load<=1e-9) t0=t; }
+  if(load<=1e-9 && P.makespan>t0+59) gaps.push([t0,P.makespan]);
+  return gaps;
+}
+function liveView(){   // what to draw, the original plan for ghosts, and "now" in plan seconds
+  if (SESSION && RES) return {P:RES.plan, base:BASE_PLAN, now:secsNow()};
+  return {P:PLAN, base:null, now:null};
+}
+function actState(a, now){
+  const f = SESSION && SESSION.acts[a.id];
+  if (f) return f.state==="done" ? "done" : "running";
+  if (a.pinned) return "done";                                   // inferred: something that needed it has started
+  if (now==null) return "todo";
+  if (a.kind==="step" && a.ref.secs) return "todo";              // a timer only counts once it is started
+  if (a.end<=now) return "done";                                 // prep and untimed steps: assumed on track
+  return a.start<=now ? "running" : "todo";
+}
+function runFraction(a, now){
+  const k = a.kind==="step" ? a.idx : -1;
+  if (k>=0 && T[k] && T[k].total) return Math.max(0, Math.min(1, 1 - T[k].remaining/T[k].total));
+  return Math.max(0, Math.min(1, (now - a.start) / Math.max(1, a.end - a.start)));
+}
+function hostStep(a){   // the step a row jumps to: itself, or the step its prep is listed under
+  if (a.kind==="step") return a.idx;
+  for (const [sid, list] of Object.entries(VIEW.inside)) if (list.some(t=>t.id===a.id)) return PLAN.byId[sid].idx;
+  return ORDER[0];
+}
+const escX = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");
+function buildGantt(fit){   // fit: {w, h} in screen pixels for the full-screen sheet: drawn 1:1, so labels stay readable
+  const {P, base, now} = liveView();
+  const rows = (base||P).acts.slice().sort((x,y)=>x.start-y.start||x.idx-y.idx).map(a=>P.byId[a.id]);
+  const W=fit?Math.max(300,fit.w):680, L=fit?Math.min(190,Math.round(W*0.34)):190, G=fit?8:6, top=22;
+  const H=fit?Math.max(18,Math.min(34,Math.floor((fit.h-top-40)/(rows.length+1))-G)):16, maxLabel=fit?Math.floor(L/7.2):24;
+  const span=Math.max(P.makespan, base?base.makespan:0, 60), px=(W-L-10)/span;
+  const gaps=freeGaps(P); const h=top+rows.length*(H+G)+H+30;
+  let out=`<svg viewBox="0 0 ${W} ${h}"${fit?` width="${W}" height="${h}"`:""} xmlns="http://www.w3.org/2000/svg">`;
+  const step=span>5400?1800:span>1800?600:300;
+  for(let t=0;t<=span;t+=step){ const x=L+t*px; out+=`<line class="grid" x1="${x}" y1="${top-6}" x2="${x}" y2="${h-22}"/><text class="tick" x="${x}" y="${top-10}" text-anchor="middle">${Math.round(t/60)}</text>`; }
+  rows.forEach((a,r)=>{ const y=top+r*(H+G), x=L+a.start*px, w=Math.max(2,(a.end-a.start)*px);
+    const tone=a.critical?"crit":(a.ref.passive?"pass":"hands"), state=actState(a, now);
+    const label=(a.ref.label || (a.kind==="step"?a.ref.title:a.ref.text)).slice(0,maxLabel);
+    out+=`<g class="row is-${state}" data-k="${hostStep(a)}" data-id="${escX(a.id)}"><rect class="hit" x="0" y="${y-G/2}" width="${W}" height="${H+G}"/>`;
+    out+=`<text class="lbl" x="0" y="${y+H/2+4}">${escX(label)}</text>`;
+    const b = base && base.byId[a.id];
+    if (b && (Math.abs(b.start-a.start)>30 || Math.abs(b.end-a.end)>30))
+      out+=`<rect class="ghost" x="${L+b.start*px}" y="${y+1}" width="${Math.max(2,(b.end-b.start)*px)}" height="${H-2}" rx="3"/>`;
+    if (state==="done") out+=`<rect class="${tone} done" x="${x}" y="${y}" width="${w}" height="${H}" rx="3"/><text class="tickmark" x="${x+w+4}" y="${y+H/2+4}">✓</text>`;
+    else { out+=`<rect class="${tone} todo" x="${x}" y="${y}" width="${w}" height="${H}" rx="3"/>`;
+      if (state==="running") out+=`<rect class="${tone} fillbar" x="${x}" y="${y}" width="${Math.max(2,w*runFraction(a,now))}" height="${H}" rx="3"/>`; }
+    if (!base && a.float>30) out+=`<rect class="flt" x="${x+w}" y="${y}" width="${Math.max(0,a.float*px)}" height="${H}"/>`;
+    out+=`</g>`;
+  });
+  const gy=top+rows.length*(H+G)+6;
+  out+=`<text class="lbl" x="0" y="${gy+H-4}">Hands free</text>`;
+  gaps.forEach(([a,b])=>{ const x=L+a*px, w=(b-a)*px; out+=`<rect class="free" x="${x}" y="${gy}" width="${w}" height="${H}" rx="3"/>`; if(w>34) out+=`<text class="tick" x="${x+w/2}" y="${gy+H-4}" text-anchor="middle">${Math.round((b-a)/60)} min</text>`; });
+  out+=`<line class="now nowline" x1="${L}" y1="${top-6}" x2="${L}" y2="${h-22}" style="display:none"/>`;
+  out+="</svg>"; const d=document.createElement("div"); d.className="gantt"; d.innerHTML=out; d.dataset.l=L; d.dataset.px=px;
+  d.addEventListener("click", e=>{ const g=e.target.closest("g.row"); if(g) jumpTo(+g.dataset.k); });
+  return d;
+}
+// ---------- the two readouts: hands-free and spare time ----------
+const span = s => s>=90 ? Math.round(s/60)+" min" : Math.max(1,Math.round(s))+" s";   // durations, never mm:ss, which reads like a clock time
+function handsFreeText(){
+  const {P, now} = liveView(), t = now ?? 0, g = freeGaps(P).find(([a,b])=>b>t+1);
+  if (!g) return now==null ? "" : "none left";
+  if (now==null) return g[0]<1 ? "from the start" : "first after "+span(g[0]);
+  return g[0]<=t ? "now, "+span(g[1]-t)+" left" : "in "+span(g[0]-t);
+}
+function spareText(){   // how much longer the timers now due (or, if none, the next one) could wait before dinner moves
+  const {P, now} = liveView(); if (now==null) return "";
+  const waiting = P.acts.filter(a=>a.kind==="step" && a.ref.secs && !SESSION.acts[a.id] && a.end>now).sort((x,y)=>x.start-y.start);
+  if (!waiting.length) return "";
+  const due = waiting.filter(a=>a.start<=now+1), pool = due.length ? due : [waiting[0]];
+  const tight = pool.reduce((m,a)=>a.float<m.float?a:m);
+  return tight.critical ? "none" : (tight.float>=60 ? Math.floor(tight.float/60)+" min" : Math.round(tight.float)+" s");
+}
+function paintReadouts(){
+  const free = handsFreeText(), spare = spareText();
+  for (const [id, text] of [["gFree", free], ["tlFree", free], ["gSpare", spare], ["tlSpare", spare]]) {
+    const el = document.getElementById(id); if (!el) continue; el.textContent = text; el.parentElement.hidden = !text; }
+  const pl = document.getElementById("tlPlate"); if (pl) pl.textContent = document.getElementById("plate").textContent;
+}
+function paintNow(){
+  for (const g of document.querySelectorAll(".gantt")) { const ln=g.querySelector(".nowline"); if(!ln) continue;
+    if(cookStart===null){ ln.style.display="none"; continue; }
+    const t=(Date.now()-cookStart)/1000; if(t>cookHorizon()+120){ ln.style.display="none"; continue; }
+    const x=+g.dataset.l + t*(+g.dataset.px); ln.setAttribute("x1",x); ln.setAttribute("x2",x); ln.style.display=""; }
+  paintReadouts();
+}
+// ---------- redraw on every re-plan; the full-screen sheet ----------
+function redrawTimeline(){
+  const g=document.getElementById("gantt"); if(g){ g.innerHTML=""; g.append(buildGantt(false)); }
+  if (!document.getElementById("tl").hidden) fillSheet();
+  paintNow();
+}
+on("plan-updated", redrawTimeline);
+on("step-started", redrawTimeline); on("step-paused", redrawTimeline); on("step-finished", redrawTimeline); on("step-reset", redrawTimeline);
+const tl=document.getElementById("tl");
+function openTimeline(){
+  tl.hidden=false; document.body.style.overflow="hidden";
+  fillSheet();
+  if (document.fullscreenElement && screen.orientation && screen.orientation.lock) screen.orientation.lock("landscape").catch(()=>{});
+}
+function fillSheet(){   // the chart drawn to the sheet's real size: no sideways scrolling, so the row names never scroll away
+  const tb=document.getElementById("tlBody"); tb.innerHTML="";
+  tb.append(buildGantt({w: tb.clientWidth - 58, h: tb.clientHeight - 30})); paintNow();
+}
+window.addEventListener("resize", ()=>{ if (!tl.hidden) fillSheet(); });
+function closeTimeline(){
+  tl.hidden=true; if(!cm.classList.contains("on")) document.body.style.overflow="";
+  if (screen.orientation && screen.orientation.unlock) try{ screen.orientation.unlock(); }catch(e){}
+}
+function jumpTo(k){
+  if (!tl.hidden) closeTimeline();
+  if (cm.classList.contains("on")) showStep(k);
+  else { const el=document.getElementById("step"+k)||document.getElementById("steps"); if(el && el.scrollIntoView) el.scrollIntoView({behavior:"smooth",block:"center"}); }
+}
+document.getElementById("tlOpen").onclick=openTimeline; document.getElementById("cmTl").onclick=openTimeline;
+document.getElementById("tlClose").onclick=closeTimeline;
+document.addEventListener("keydown", e=>{ if(e.key==="Escape" && !tl.hidden){ e.stopImmediatePropagation(); closeTimeline(); } }, true);
+// ---------- timers: one per step, any number may run at once ----------
+const T = STEPS.map(s => ({ total:s.secs, remaining:s.secs, end:null, running:false, done:false, warned:false, fired:false, nearly:false, ringing:false, rings:0, nextRing:0, views:[] }));
+let cue=null;
+function makeTimerView(k, big){
+  const t=T[k]; if(!t.total) return null;
+  const root=document.createElement("div"); root.className="st";
+  const clock=document.createElement("span"); clock.className="clock";
+  const bar=document.createElement("span"); bar.className="bar"; const fill=document.createElement("i"); bar.append(fill);
+  for (const [sid,c] of Object.entries(VIEW.cues)){ if(c.ref===STEPS[k].id){ const u=document.createElement("u"); u.style.left=(100*(1-c.remaining/t.total))+"%"; u.title=PLAN.byId[sid].ref.title; bar.append(u); } }
+  const w=warnSecs(STEPS[k]); if(w){ const u=document.createElement("u"); u.className="w"; u.style.left=(100*(1-w/t.total))+"%"; u.title="soft alarm, "+w+" s before the end"; bar.append(u); }
+  const go=document.createElement("button"); go.type="button"; go.className="go";
+  const fin=document.createElement("button"); fin.type="button"; fin.className="fin-btn"; fin.textContent="Done"; fin.title="Finished early - stop this timer";
+  const reset=document.createElement("button"); reset.type="button"; reset.className="reset-btn"; reset.textContent="Reset";
+  const undoable=()=>!!(t.undo && Date.now()<t.undo.until);   // a true boolean: classList.toggle flips on undefined
+  go.onclick=()=>undoable()?undoDone(k):t.ringing?silence(k):t.running?pause(k):start(k); fin.onclick=()=>doneT(k); holdToConfirm(reset, ()=>resetT(k), "Hold to reset");
+  if(big){ const row=document.createElement("div"); row.className="row"; row.append(go,fin,reset); root.append(clock,bar,row); } else root.append(clock,bar,go,fin,reset);
+  const v={ paint(){ clock.textContent=mmss(t.remaining); clock.classList.toggle("warn",t.running&&t.remaining<=(w||30)&&t.remaining>0); clock.classList.toggle("done",t.done);
+    fill.style.width=(100*(1-t.remaining/t.total))+"%"; const u=undoable(); go.textContent=u?"Undo":t.ringing?"Stop alarm":t.done?"Done":t.running?"Pause":(t.remaining<t.total?"Resume":"Start "+mmss(t.total)); go.classList.toggle("run",t.running); go.classList.toggle("ring",t.ringing); go.classList.toggle("undo",u); go.disabled=t.done&&!t.ringing&&!u; fin.hidden=t.done; reset.disabled=t.remaining===t.total&&!t.running; root.classList.toggle("ringing",t.ringing); }};
+  t.views.push(v); v.paint(); return root;
+}
+function paintAll(k){ T[k].views.forEach(v=>v.paint()); const li=document.getElementById("step"+k); if(li) li.classList.toggle("running",T[k].running); paintStrip(); if(cm.classList.contains("on")) paintOthers(); }
+function start(k){ const t=T[k]; if(t.running||t.done) return; if(pendingAuto && pendingAuto.k===k) cancelAuto(); if(cookStart===null){ const a=act(k); cookStart=Date.now()-a.start*1000; } t.running=true; holdWake(); t.end=Date.now()+t.remaining*1000; noteStart(k); paintAll(k); ensureTick(); }
+function pause(k){ const t=T[k]; if(!t.running) return; t.remaining=Math.max(0,(t.end-Date.now())/1000); t.running=false; notePause(k); paintAll(k); }
+function resetT(k){ const t=T[k]; t.running=false; t.done=false; t.nearly=false; t.ringing=false; t.rings=0; t.remaining=t.total;
+  for (const [sid,c] of Object.entries(VIEW.cues)) if(c.ref===STEPS[k].id){ const j=PLAN.byId[sid].idx; T[j].warned=false; T[j].fired=false; } noteReset(k); paintAll(k); }
+// Done: the step finished before its timer did (the oven's hot, the water's boiling). The timer stops
+// without an alarm and the plan takes the step as done now. A stray tap is undone with the main button,
+// which reads "Undo" for a few seconds. Done before anything has started also starts the cook.
+const UNDO_MS=8000;
+function doneT(k){ const t=T[k]; if(t.done) return;
+  if(cookStart===null){ const a=act(k); cookStart=Date.now()-a.end*1000; }
+  const prev = SESSION && SESSION.acts[STEPS[k].id] ? Object.assign({}, SESSION.acts[STEPS[k].id]) : null;
+  if(t.running) t.remaining=Math.max(0,(t.end-Date.now())/1000);
+  t.undo={remaining:t.remaining, running:t.running, prev, until:Date.now()+UNDO_MS};
+  t.running=false; t.done=true; t.ringing=false;
+  noteDoneNow(k); paintAll(k); ensureTick(); setTimeout(()=>paintAll(k), UNDO_MS+50);
+}
+function undoDone(k){ const t=T[k], u=t.undo; if(!u) return; t.undo=null; t.done=false; t.remaining=u.remaining; t.running=u.running;
+  if(t.running) t.end=Date.now()+t.remaining*1000;
+  restoreFact(k, u.prev); paintAll(k); }
+// A control that destroys something (wiping a timer) needs a deliberate press-and-hold, so a stray knuckle
+// can't do it. A quick tap just says how; from a keyboard, a confirm stands in for the hold.
+const HOLD_MS=800;
+function holdToConfirm(btn, act, hint){
+  let tm=null; const label=btn.textContent; btn.classList.add("hold"); btn.title=hint;
+  const stop=()=>{ clearTimeout(tm); tm=null; btn.classList.remove("holding"); };
+  btn.addEventListener("pointerdown", ()=>{ if(btn.disabled) return; btn.classList.add("holding");
+    tm=setTimeout(()=>{ tm=null; btn.classList.remove("holding"); act(); buzz(40); }, HOLD_MS); });
+  for (const n of ["pointerup","pointerleave","pointercancel"]) btn.addEventListener(n, ()=>{ if(!tm) return; stop();
+    btn.textContent=hint; setTimeout(()=>{ btn.textContent=label; }, 1800); });
+  btn.addEventListener("contextmenu", e=>e.preventDefault());   // a long press must not open the phone's menu
+  btn.addEventListener("click", e=>{ if(e.detail===0 && confirm(hint.replace(/^Hold to /,"")[0].toUpperCase()+hint.replace(/^Hold to ./,"")+"?")) act(); });
+}
+// Starting a step means what it waits for is finished, whatever their timers say: the preheat timer
+// stops quietly once the gnocchi go in. Links meant to overlap (lag<0, "start when X has 14 min left")
+// are left running. Follows the chain back, so starting the bake also ends the simmer and the water.
+function finishPrereqs(k, seen){
+  seen = seen || new Set();
+  for (const d of (STEPS[k].deps||[])) { if ((d.lag||0) < 0 || seen.has(d.id)) continue; seen.add(d.id);
+    const j = STEPS.findIndex(s=>s.id===d.id); if (j<0) continue;              // prep tasks have no timer
+    const t = T[j]; if (t.total && !t.done && (t.running || t.remaining < t.total)) { endTimer(j); }
+    finishPrereqs(j, seen); }
+}
+function endTimer(j){ const t=T[j]; if(t.running) t.remaining=Math.max(0,(t.end-Date.now())/1000);
+  t.running=false; t.done=true; t.ringing=false; noteDone(j); paintAll(j); }
+on("step-started", d=>{ if(!d.resumed) finishPrereqs(d.k); });
+on("step-finished", d=>finishPrereqs(d.k));   // done means what it waited for was done too (Next on plating, Done, a timer ending)
+let ticker=null;
+function ensureTick(){ if(ticker) return; ticker=setInterval(()=>{
+  let any=false; const now=Date.now();
+  T.forEach((t,k)=>{ if(!t.running) return; any=true; t.remaining=Math.max(0,(t.end-now)/1000);
+    for (const [sid,c] of Object.entries(VIEW.cues)){ if(c.ref!==STEPS[k].id) continue; const j=PLAN.byId[sid].idx, d=T[j];
+      if(!d.warned && t.remaining<=c.remaining+c.buffer){ d.warned=true; emit("cue-warning", {k:j, of:k, secs:c.buffer}); }
+      if(!d.fired && t.remaining<=c.remaining){ d.fired=true; emit("cue-now", {k:j, of:k}); if(!d.running&&!d.done&&d.remaining===d.total) start(j); paintAll(j); } }
+    const w=warnSecs(STEPS[k]); if(w && !t.nearly && t.remaining<=w){ t.nearly=true; emit("timer-warning", {k, secs:w}); }
+    if(t.remaining<=0){ t.running=false; t.done=true; emit("timer-ended", {k}); noteDone(k, t.end); } paintAll(k); });
+  // the hard alarm: repeats until someone stops it, so a timer that ends while you are out of the room is still heard
+  T.forEach((t,k)=>{ if(!t.ringing) return; any=true; if(now>=t.nextRing){ if(++t.rings>RING_MAX){ t.ringing=false; paintAll(k); } else { SOUNDS.hard(); buzz([300,120,300,120,300]); t.nextRing=now+RING_EVERY*1000; } } });
+  paintNow(); autoTick(now); watchTick(now);
+  if(SESSION && now-lastRefresh>5000){ lastRefresh=now; refreshPlan(); saveSession(); }   // keep the projection and the saved timers current
+  if(cue && now>cue.until){ cue=null; paintStrip(); if(cm.classList.contains("on")) paintOthers(); }
+  if(!any && !cm.classList.contains("on")) dropWake();
+  if(!any && !cue && (cookStart===null || (now-cookStart)/1000>cookHorizon()+120)){ clearInterval(ticker); ticker=null; }
+},250); }
+function setCue(text, secs, level){ cue={text, level, until:Date.now()+secs*1000}; paintStrip(); if(cm.classList.contains("on")) paintOthers(); }   // the banner; sound and buzz are alerts.js's job
+// ---------- sounds ----------
+// One audio context for the page, created or resumed on every tap: iOS and Chrome only let a page make
+// sound after a user gesture, and a timer ending is not one. Tones are synthesised, so no audio files.
+let AC=null;
+function audio(){ try{ if(!AC) AC=new (window.AudioContext||window.webkitAudioContext)(); if(AC.state==="suspended") AC.resume().catch(()=>{}); return AC; }catch(e){ return null; } }
+document.addEventListener("pointerdown", ()=>audio(), {capture:true});
+function tone(freq, at, dur, type, gain){ if(!SETTINGS.sound) return; const ac=audio(); if(!ac) return; gain=(gain||.4)*SETTINGS.volume; const o=ac.createOscillator(), g=ac.createGain(); o.type=type||"sine"; o.frequency.value=freq; o.connect(g); g.connect(ac.destination);
+  const t0=ac.currentTime+at; g.gain.setValueAtTime(.0001,t0); g.gain.exponentialRampToValueAtTime(gain||.4,t0+.02); g.gain.exponentialRampToValueAtTime(.0001,t0+dur); o.start(t0); o.stop(t0+dur+.05); }
+// Three levels, recognisable without looking: one mellow note (soft), two notes (heads-up), a rising run (urgent).
+const SOUNDS={
+  soft(){ tone(660,0,.6,"sine",.3); },
+  cue(){ tone(660,0,.3); tone(660,.35,.3); },
+  cueNow(){ tone(880,0,.25); tone(880,.3,.25); tone(880,.6,.25); },
+  hard(){ [0,.22,.44].forEach((d,i)=>tone(880+i*220,d,.2,"triangle",.5)); tone(1320,.7,.7,"triangle",.5); }
+};
+const RING_EVERY=8, RING_MAX=12;   // urgent alarm every 8 s until stopped, for at most about a minute and a half
+function warnSecs(s){   // the step's own lead time, moved earlier or later by the device setting
+  const w = baseWarn(s); if (!w) return 0;
+  return Math.max(10, Math.min(s.secs - 10, w + SETTINGS.warnShift));
+}
+function baseWarn(s){
+  // Lead time for the soft alarm. Hands free during the step means the cook may be out of the room, so more
+  // notice; hands on the pan means they are already there. Under two minutes the end alarm is enough.
+  if(!s.secs) return 0; if(typeof s.warn==="number") return Math.min(s.warn, s.secs);
+  if(s.secs<120) return 0; const free = s.passive || (s.attention??1)>=1;
+  return free ? (s.secs>=3600?180:60) : 30;
+}
+
+// ---------- alert levels (plan Phase 5) ----------
+// Every alert is decided here, from events on the channel: nothing else plays a sound or sets a banner.
+//   urgent   a timer ends on something on the heat, or on a step with no spare time (what follows can't start
+//            until it's done): repeating alarm, long buzz, the whole screen becomes a Stop button
+//   heads    something needs the cook soon: two notes, short buzz, a banner that clears itself
+//   soft     worth knowing, nothing to do yet: one note, a small note that clears itself
+const LEVEL_RANK={soft:1, heads:2, urgent:3}, STACK_GAP=2500;   // never two alerts within 2.5 s: the louder goes first
+const label = k => NN(k)+" "+STEPS[k].title;
+const actLabel = a => a.kind==="step" ? NN(a.idx)+" "+a.ref.title : (a.ref.label || a.ref.text);
+function currentPlan(){ return (SESSION && RES) ? RES.plan : PLAN; }
+function endLevel(k){   // how loudly a timer's end should speak, and why
+  const s=STEPS[k], P=currentPlan(), a=P.byId[s.id];
+  if (s.alert==="urgent" || s.alert==="soft") return {level:s.alert, note:""};
+  if (a && a.critical) {
+    const next = P.acts.filter(b=>b.critical && b.deps.some(d=>d.id===s.id && (d.lag||0)>=0) && !(SESSION && SESSION.acts[b.id]))
+                       .sort((x,y)=>x.start-y.start)[0];
+    if (next) return {level:"urgent", note:"This step should be complete now. Starting "+actLabel(next)+" is on the critical path: dinner slips back if it waits."};
+  }
+  const heat = !s.passive && ["ring","griddle","oven"].some(e=>(s.needs||{})[e]);
+  if (heat) return {level:"urgent", note:"On the heat: check it now."};
+  const spare = a ? Math.floor(a.float/60) : 0;
+  return {level:"soft", note: spare>=1 ? spare+" min to spare" : ""};
+}
+let lastAlertAt=0, queueTimer=null; const alertQueue=[];
+function notify(level, text, opts){
+  opts=opts||{};
+  if (Date.now()-lastAlertAt < STACK_GAP) { alertQueue.push({level, text, opts}); drainSoon(); return; }
+  play(level, text, opts);
+}
+function play(level, text, opts){
+  lastAlertAt=Date.now();
+  setCue(text, level==="heads" ? 20 : 12, level);
+  if (level==="heads") { (opts.sound==="cueNow" ? SOUNDS.cueNow : SOUNDS.cue)(); buzz([120,80,120]); }
+  else { SOUNDS.soft(); buzz(60); }
+  emit("alerted", {level, text});
+}
+function drainSoon(){
+  if (queueTimer) return;
+  queueTimer=setTimeout(()=>{ queueTimer=null; if (!alertQueue.length) return;
+    alertQueue.sort((x,y)=>LEVEL_RANK[y.level]-LEVEL_RANK[x.level]); const n=alertQueue.shift();
+    play(n.level, n.text, n.opts); if (alertQueue.length) drainSoon(); }, Math.max(50, STACK_GAP-(Date.now()-lastAlertAt)));
+}
+// Urgent: the alarm repeats (in the ticker) and the whole screen becomes one Stop button until it is tapped.
+let overlayK=null;
+function ring(k, note){
+  const t=T[k]; t.ringing=true; t.rings=0; t.nextRing=0; lastAlertAt=Date.now();
+  document.title="Done - "+STEPS[k].title;
+  if("Notification" in window && Notification.permission==="granted") new Notification("Timer done",{body:STEPS[k].title});
+  showOverlay(k, note); emit("alerted", {level:"urgent", text:label(k)});
+}
+function showOverlay(k, note){
+  overlayK=k; const o=document.getElementById("alarmOver"); if(!o) return;
+  document.getElementById("aoTitle").textContent=label(k); document.getElementById("aoNote").textContent=note||"";
+  o.hidden=false;
+}
+function silence(k){ const t=T[k]; t.ringing=false; paintAll(k);
+  if (overlayK===k) { overlayK=null; const next=T.findIndex(x=>x.ringing); const o=document.getElementById("alarmOver");
+    if (next>=0) showOverlay(next, endLevel(next).note); else if (o) o.hidden=true; } }
+function silenceAll(){ T.forEach((t,k)=>{ if(t.ringing || overlayK===k) silence(k); }); }
+document.getElementById("alarmOver").onclick=()=>{ if(overlayK!==null) silence(overlayK); };
+document.getElementById("hear").onclick=()=>{ SOUNDS.soft(); setTimeout(SOUNDS.cue, 1200); setTimeout(SOUNDS.hard, 2600); };
+
+on("timer-warning", d=>{ const lv=endLevel(d.k).level==="urgent" ? "heads" : "soft";
+  notify(lv, label(d.k)+" - "+(d.secs>=120?Math.round(d.secs/60)+" min":d.secs+" s")+" left"); });
+on("timer-ended", d=>{ const e=endLevel(d.k);
+  if (e.level==="urgent") ring(d.k, e.note);
+  else notify("soft", label(d.k)+": done"+(e.note?", "+e.note:"")+(d.away?" (finished while you were away)":"")); });
+on("cue-warning", d=>notify("heads", label(d.k)+" in "+d.secs+" s"));
+on("cue-now", d=>notify("heads", label(d.k)+" - now", {sound:"cueNow"}));
+on("step-due-soon", d=>notify("heads", "Next: "+label(d.k)+(d.in>=5 ? " in "+Math.round(d.in)+" s" : " - now")));
+on("handsfree-started", d=>notify("soft", "Hands free for "+Math.max(1,Math.round((d.to-d.from)/60))+" min. "+d.suggestion));
+
+// ---------- the two time-based detectors (run about once a second while cooking) ----------
+// A hands-free stretch of 2 min or more starting: say so, with a prep task that could be done now, or a
+// breather. And the next timer due, but only after 2 min or more hands-free, when the cook may have wandered.
+const BREATHERS=["Check the table is clear.", "Take a breather while you can.", "Pour a drink and take a few minutes.",
+                 "Clear the sink and wipe the board.", "Sit down for a minute.", "Read ahead to the next step."];
+let breatherIx=0; const freeSaid=new Set(), dueSaid=new Set();
+function prepNow(P, now, gapEnd){   // a prep task that could be done in this stretch: its prerequisites are done, it isn't fresh
+  const t = P.acts.filter(a=>a.kind==="task" && !a.pinned && a.start>=gapEnd-1 && !a.ref.fresh &&
+                             a.deps.every(d=>P.byId[d.id].end<=now)).sort((x,y)=>x.start-y.start)[0];
+  if (!t) return null; const txt=t.ref.text.split(/[;.]/)[0].trim();
+  return "A good moment to "+txt.charAt(0).toLowerCase()+txt.slice(1)+".";
+}
+function watch(P, now, facts){   // pure enough to test: reads the plan, the facts and the clock it is given
+  const said=[], gaps=freeGaps(P), g=gaps.find(([a,b])=>a<=now && now<b);
+  if (g && g[1]-g[0]>=120 && now-g[0]<20 && !freeSaid.has(Math.round(g[0]))) {
+    freeSaid.add(Math.round(g[0]));
+    said.push(["handsfree-started", {from:g[0], to:g[1], suggestion: prepNow(P, now, g[1]) || BREATHERS[breatherIx++ % BREATHERS.length]}]);
+  }
+  if (g && now-g[0]>=120) {
+    const lead=Math.max(10, 30+SETTINGS.warnShift)*((SESSION&&SESSION.speed)||speed);   // an unhurried cook gets more notice
+    for (const a of P.acts) if (a.kind==="step" && a.ref.secs && !facts[a.id] && !dueSaid.has(a.id) && !VIEW.cues[a.id]
+                                && now>=a.start-lead && now<a.start+5) { dueSaid.add(a.id); said.push(["step-due-soon", {k:a.idx, in:a.start-now}]); }
+  }
+  return said;
+}
+let lastWatch=0;
+function watchTick(nowMs){
+  if (!SESSION || !RES || nowMs-lastWatch<1000) return; lastWatch=nowMs;
+  for (const [name, detail] of watch(RES.plan, secsNow(), SESSION.acts)) emit(name, detail);
+}
+
+function paintStrip(){
+  const s=document.getElementById("strip"); s.innerHTML="";
+  const live=T.map((t,k)=>({t,k})).filter(x=>x.t.running||x.t.done);
+  s.classList.toggle("on", live.length>0||!!cue);
+  if(cue){ const c=document.createElement("span"); c.className="cue lvl-"+(cue.level||"heads"); const b=document.createElement("b"); b.textContent="▶ "; c.append(b,cue.text); s.append(c); }
+  for (const {t,k} of live){ const sp=document.createElement("span"); sp.className=t.ringing?"ring":t.remaining<=30?"warn":""; const b=document.createElement("b"); b.textContent=t.ringing?"⏰ stop":t.done?"done":mmss(t.remaining); sp.append(b,NN(k)+" "+STEPS[k].title); sp.onclick=()=>{ if(t.ringing) silence(k); if(cm.classList.contains("on")) showStep(k); else document.getElementById("step"+k).scrollIntoView({behavior:"smooth",block:"center"}); }; s.append(sp); }
+}
+// ---------- session: what has really happened in this cook ----------
+// Facts only: when each timer started, paused and finished, and when an untimed step was done. Saved on
+// every change so a reload or a locked phone keeps the cook. reschedule.js turns the facts plus the plan
+// at the start into a projected plan and a plate-up time. Cooking starts with the first timer.
+const SKEY = "kb-session:"+SLUG, HKEY = "kb-history:"+SLUG;
+let SESSION = null;       // {anchor: ms when plan time 0 was, speed, servings, acts: {id: {start, end, state}}, shown}
+let BASE_PLAN = null, RES = null, lastRefresh = 0;
+const secsNow = () => (Date.now() - SESSION.anchor) / 1000;
+const roundMin = ms => Math.round(ms / 60000) * 60000;
+const hhmm = ms => new Date(roundMin(ms)).toLocaleTimeString("en-GB", {hour: "2-digit", minute: "2-digit"});
+const store = { get(k){ try{ return JSON.parse(localStorage.getItem(k)); }catch(e){ return null; } },
+                set(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} },
+                del(k){ try{ localStorage.removeItem(k); }catch(e){} } };
+
+function beginSession(){
+  SESSION = {anchor: cookStart, speed, servings, acts: {}, shown: null};
+  BASE_PLAN = RecipePlan.plan(R, speed);
+  SESSION.shown = roundMin(SESSION.anchor + BASE_PLAN.makespan * 1000);
+  emit("cook-started", {anchor: SESSION.anchor});
+}
+function fact(k, f){ if (!SESSION) beginSession(); const id = STEPS[k].id;
+  SESSION.acts[id] = Object.assign(SESSION.acts[id] || {}, f); saveSession(); refreshPlan(); }
+const said = (name, k, extra) => emit(name, Object.assign({id: STEPS[k].id, k, at: SESSION ? secsNow() : 0}, extra));
+function noteStart(k){ if (!SESSION) beginSession(); const a = SESSION.acts[STEPS[k].id], resumed = !!(a && a.start != null);
+  fact(k, {start: resumed ? a.start : secsNow(), end: secsNow() + T[k].remaining, state: "running"}); said("step-started", k, {resumed}); }
+function notePause(k){ if (!SESSION) return; fact(k, {state: "paused", end: secsNow() + T[k].remaining}); said("step-paused", k); }
+function noteDone(k, atMs){ if (!SESSION) return; const at = ((atMs ?? Date.now()) - SESSION.anchor) / 1000;
+  fact(k, {state: "done", end: at}); said("step-finished", k, {at}); }
+function noteReset(k){ if (!SESSION) return; delete SESSION.acts[STEPS[k].id]; saveSession(); refreshPlan(); said("step-reset", k); }
+function noteDoneNow(k){ if (!SESSION) beginSession(); const a = SESSION.acts[STEPS[k].id], n = secsNow();
+  fact(k, {start: a && a.start != null ? a.start : Math.max(0, n - (STEPS[k].secs || STEPS[k].handsSecs || 45)), end: n, state: "done"});
+  said("step-finished", k, {at: n, early: true}); }
+function restoreFact(k, prev){ if (!SESSION) return; const id = STEPS[k].id;
+  if (prev) SESSION.acts[id] = prev; else delete SESSION.acts[id];
+  saveSession(); refreshPlan(); said(prev && prev.state !== "done" ? "step-started" : "step-reset", k, {resumed: !!prev, undone: true}); }
+// "Next step" marks an untimed step done, but only once a cook is under way: reading ahead doesn't count.
+function noteUntimedDone(k){ if (!SESSION || STEPS[k].secs || SESSION.acts[STEPS[k].id]) return;
+  const n = secsNow(); fact(k, {start: n - (STEPS[k].handsSecs || 45), end: n, state: "done"}); said("step-finished", k, {at: n}); }
+
+function sessionFacts(){   // running and paused timers report their live projected finish
+  const acts = {};
+  for (const [id, a] of Object.entries(SESSION.acts)) { const t = T[STEPS.findIndex(s=>s.id===id)]; let end = a.end;
+    if (a.state === "running" && t && t.running) end = (t.end - SESSION.anchor) / 1000;
+    else if (a.state === "paused" && t) end = secsNow() + t.remaining;
+    acts[id] = {start: a.start, end, state: a.state}; }
+  return {acts};
+}
+function refreshPlan(){
+  if (!SESSION) return paintPlate();
+  try { RES = RecipeSession.reschedule(R, SESSION.speed, BASE_PLAN, sessionFacts(), secsNow()); } catch(e) { RES = null; }
+  paintPlate();
+  if (RES) emit("plan-updated", {plan: RES.plan, plateUp: RES.plateUp});
+}
+// The readout. No twitching: the shown time only moves when the projection has moved 30 s or more,
+// and a change of minute is said once, in words.
+function paintPlate(){
+  let label, time;
+  if (!SESSION) { label = "Start now, dinner at"; time = hhmm(Date.now() + PLAN.makespan * 1000); }
+  else { const target = SESSION.anchor + (RES ? RES.plateUp : BASE_PLAN.makespan) * 1000;
+    if (Math.abs(target - SESSION.shown) >= 30000) { const before = SESSION.shown; SESSION.shown = target; saveSession();
+      if (hhmm(before) !== hhmm(target)) { announcePlate(before, target); emit("plan-shifted", {before, after: target}); } }
+    label = "Dinner at"; time = hhmm(SESSION.shown); }
+  document.getElementById("plateLbl").textContent = label; document.getElementById("plate").textContent = time;
+  document.getElementById("cmPlate").textContent = SESSION ? "dinner "+time : "";
+  document.getElementById("endCook").hidden = !SESSION;
+}
+function announcePlate(before, after){
+  const m = Math.round((roundMin(after) - roundMin(before)) / 60000);
+  notify("soft", m > 0 ? "Dinner now "+hhmm(after)+" - about "+(m === 1 ? "a minute" : m+" min")+" later" : "Dinner back to "+hhmm(after));
+}
+function cookHorizon(){ return RES ? RES.plateUp : PLAN.makespan; }   // seconds after the start the cook should end
+
+function saveSession(){ if (!SESSION) return;
+  SESSION.timers = T.map(t=>({remaining: t.remaining, end: t.end, running: t.running, done: t.done, nearly: t.nearly, warned: t.warned, fired: t.fired}));
+  store.set(SKEY, SESSION); }
+function restoreSession(){
+  const s = store.get(SKEY); if (!s || !s.anchor) return;
+  const base = RecipePlan.plan(R, s.speed);
+  if (Date.now() - s.anchor > (base.makespan + 7200) * 1000) { archive(s, base); store.del(SKEY); return; }   // a cook left open overnight
+  SESSION = s; BASE_PLAN = base; cookStart = s.anchor; speed = s.speed; servings = s.servings;
+  (s.timers || []).forEach((v, k)=>{ if (!T[k] || !T[k].total) return; Object.assign(T[k], v);
+    if (T[k].running && T[k].end <= Date.now()) {   // it finished while the page was away: say so now
+      T[k].running = false; T[k].done = true; T[k].remaining = 0; noteDone(k, T[k].end); emit("timer-ended", {k, away: true}); } });
+}
+function archive(s, base){
+  const h = store.get(HKEY) || [];
+  h.push({started: new Date(s.anchor).toISOString(), speed: s.speed, servings: s.servings, planned: base.makespan, acts: s.acts});
+  store.set(HKEY, h.slice(-50));
+}
+function finishCook(){ if (!SESSION) return; archive(SESSION, BASE_PLAN); store.del(SKEY); emit("cook-finished"); }
+document.getElementById("endCook").onclick = ()=>{
+  if (!confirm("Start over? Every timer is reset and this cook is forgotten.")) return;
+  store.del(SKEY); location.reload();
+};
+setInterval(()=>{ if (!SESSION) paintPlate(); }, 30000);   // keep "start now, dinner at" current while reading
+// ---------- method list ----------
+function renderSteps(){
+  document.getElementById("total").textContent = mins(PLAN.makespan);
+  const ol=document.getElementById("steps"); ol.innerHTML="";
+  T.forEach(t=>t.views=t.views.filter(v=>v.inline===false));
+  if (VIEW.before.length){ const li=document.createElement("li"); li.className="prep0"; const n=document.createElement("span"); n.className="n"; n.textContent="00 /";
+    const d=document.createElement("div"); const h=document.createElement("h3"); h.textContent="Before the heat"; d.append(h, mwBlock(VIEW.before,"mw","To do")); li.append(n,d); ol.append(li); }
+  for (const s of VIEW.steps){ const k=s.idx, st=STEPS[k];
+    const li=document.createElement("li"); li.id="step"+k; if(s.critical&&st.secs) li.classList.add("crit"); if(st.passive) li.classList.add("along");
+    const n=document.createElement("span"); n.className="n"; n.textContent=NN(k)+" /";
+    const d=document.createElement("div"); const h=document.createElement("h3"); h.textContent=st.title; const p=document.createElement("p"); rich(p,st.text); d.append(h,p); const need=usesBlock(st,false,"need"); if(need) d.append(need);
+    if(VIEW.inside[st.id]&&VIEW.inside[st.id].length) d.append(mwBlock(VIEW.inside[st.id],"mw","Meanwhile"));
+    const c=VIEW.cues[st.id]; if(c){ const l=document.createElement("div"); l.className="link"; l.textContent="starts automatically when "+NN(PLAN.byId[c.ref].idx)+" has "+mmss(c.remaining)+" left - alarm "+c.buffer+" s before"; d.append(l); }
+    const tv=makeTimerView(k,false); if(tv) d.append(tv);
+    li.append(n,d); ol.append(li);
+  }
+  const tm=document.getElementById("timings"); const nt=buildTimings(); nt.id="timings"; tm.replaceWith(nt);
+  const g=document.getElementById("gantt"); g.innerHTML=""; g.append(buildGantt()); paintNow();
+}
+function renderAll(){ replan(); renderSpeed(); renderSteps(); if(cm.classList.contains("on")) showStep(cur); }
+
+// ---------- cooking mode ----------
+const cm=document.getElementById("cm");
+let cur=0, wakeLock=null;   // cur = data index
+function showStep(k){
+  if(pendingAuto && pendingAuto.k!==k) cancelAuto();   // moving on (or reading ahead) cancels a waiting auto-start
+  cur=k; const s=STEPS[k]; const pos=ORDER.indexOf(k);
+  document.getElementById("cmProg").textContent="Step "+(pos+1)+" of "+ORDER.length;
+  document.getElementById("cmN").textContent=NN(k)+" /";
+  document.getElementById("cmTitle").textContent=s.title; rich(document.getElementById("cmText"),s.text);
+  const mw=document.getElementById("cmMw"); mw.innerHTML=""; const ins=VIEW.inside[s.id]||[]; if(pos===0&&VIEW.before.length) mw.append(mwBlock(VIEW.before,"cm-mw","Before the heat")); if(ins.length) mw.append(mwBlock(ins,"cm-mw","Meanwhile"));
+  const ig=document.getElementById("cmIngs"); ig.innerHTML=""; const need=usesBlock(s,false,"need"); if(need) ig.append(...need.childNodes);
+  const tm=document.getElementById("cmTimings"); tm.innerHTML=""; tm.hidden=pos!==0; if(pos===0){ const h=document.createElement("h4"); h.textContent="Timings to watch"; tm.append(h,buildTimings()); }
+  const tw=document.getElementById("cmTimer"); tw.innerHTML=""; T[k].views=T[k].views.filter(v=>v.inline!==false);
+  const tv=makeTimerView(k,true); if(tv){ T[k].views[T[k].views.length-1].inline=false; tw.append(tv); } else { const d=document.createElement("div"); d.className="none"; d.textContent="No timer on this step - carry on when you're ready."; tw.append(d); }
+  paintOthers();
+  document.getElementById("cmPrev").disabled=pos===0;
+  const nx=document.getElementById("cmNext"); nx.textContent=pos===ORDER.length-1?"Finished":"Next step"; nx.classList.toggle("fin",pos===ORDER.length-1);
+}
+function paintOthers(){
+  const cc=document.getElementById("cmCue"); cc.textContent=cue?"\u25B6 "+cue.text:""; cc.className="cm-cue"+(cue&&cue.level?" lvl-"+cue.level:"");
+  const o=document.getElementById("cmOthers"); o.innerHTML="";
+  const live=T.map((t,k)=>({t,k})).filter(x=>x.k!==cur&&(x.t.running||x.t.done)); if(!live.length) return;
+  const h=document.createElement("div"); h.className="lbl"; h.textContent="Also running"; o.append(h);
+  live.forEach(({t,k})=>{ const row=document.createElement("div"); row.className="row"; const b=document.createElement("b"); b.textContent=t.ringing?"⏰ stop":t.done?"done":mmss(t.remaining); const s=document.createElement("span"); s.textContent=NN(k)+" "+STEPS[k].title; row.append(b,s); row.onclick=()=>{ if(t.ringing) silence(k); showStep(k); }; o.append(row); });
+}
+
+// ---------- auto-start after Next step (setting) ----------
+// The step's timer starts by itself 15 s after Next, so the cook can read the method first; Start now
+// and Not yet are offered. Leaving the step cancels it. Hands-off steps (preheating, water coming to the
+// boil) only ask, because the page can't know the oven or the hob is on.
+const AUTO_DELAY=15; let pendingAuto=null;   // {k, at}
+function offerAutoStart(k){
+  cancelAuto(); const s=STEPS[k], t=T[k];
+  if(!SETTINGS.autostart || !SESSION || !t.total || t.running || t.done || t.remaining<t.total) return;
+  if(s.passive){ showAuto(k, "Is it on? Start the "+mins(t.total)+" timer for "+s.title.toLowerCase()+".", "Start"); return; }
+  pendingAuto={k, at:Date.now()+AUTO_DELAY*1000}; showAuto(k, "", "Start now"); autoTick(Date.now()); ensureTick();
+}
+function showAuto(k, text, nowLabel){ const box=document.getElementById("cmAuto"); box.hidden=false; box.dataset.k=k;
+  document.getElementById("cmAutoText").textContent=text; document.getElementById("cmAutoNow").textContent=nowLabel; }
+function cancelAuto(){ pendingAuto=null; const box=document.getElementById("cmAuto"); if(box) box.hidden=true; }
+function autoTick(now){
+  if(!pendingAuto) return;
+  if(cur!==pendingAuto.k || !cm.classList.contains("on")){ cancelAuto(); return; }
+  const left=Math.ceil((pendingAuto.at-now)/1000);
+  if(left<=0){ const k=pendingAuto.k; cancelAuto(); start(k); return; }
+  document.getElementById("cmAutoText").textContent="Timer starts in "+left+" s";
+}
+document.getElementById("cmAutoNow").onclick=()=>{ const k=+document.getElementById("cmAuto").dataset.k; cancelAuto(); start(k); };
+document.getElementById("cmAutoNo").onclick=cancelAuto;
+let wakeState="off";
+function paintWake(){ const el=document.getElementById("cmWake"); if(!el) return;
+  el.textContent = wakeState==="api" ? "Screen will stay on." : wakeState==="video" ? "Fallback in use - open over https or file:// for a reliable screen lock." : wakeState==="denied" ? "Screen lock not allowed here - open the page over https, or add it to your home screen." : ""; }
+async function holdWake(){
+  // 1. Screen Wake Lock API (Chrome Android, iOS 16.4+): needs https or localhost, and a visible page
+  if ("wakeLock" in navigator && window.isSecureContext){
+    if (!wakeLock){ try{ wakeLock=await navigator.wakeLock.request("screen"); wakeState="api"; wakeLock.addEventListener("release",()=>{ wakeLock=null; if(wakeState==="api") wakeState="off"; paintWake(); }); }catch(e){ wakeLock=null; } }
+    if (wakeLock){ paintWake(); return; }
+  }
+  // 2. Fallback: a silent looping video keeps the screen awake where the API is unavailable (file://, content://, some in-app browsers)
+  const v=document.getElementById("keepawake");
+  try{ await v.play(); wakeState="video"; }catch(e){ wakeState="denied"; }
+  paintWake();
+}
+function dropWake(){ if(wakeLock){ wakeLock.release().catch(()=>{}); wakeLock=null; } const v=document.getElementById("keepawake"); if(v && !v.paused) v.pause(); wakeState="off"; paintWake(); }
+function anyRunning(){ return T.some(t=>t.running); }
+async function openCook(){ cm.classList.add("on"); document.body.style.overflow="hidden"; showStep(ORDER[0]); holdWake();
+  const fb=document.getElementById("cmFull"); fb.hidden = !(document.fullscreenEnabled || document.webkitFullscreenEnabled);
+  try{ if("Notification" in window && Notification.permission==="default") Notification.requestPermission(); }catch(e){} }
+function closeCook(){ cm.classList.remove("on"); document.body.style.overflow=""; if(!anyRunning()) dropWake(); if(document.fullscreenElement) document.exitFullscreen().catch(()=>{}); }
+document.getElementById("cmFull").onclick=()=>{ const el=document.documentElement; if(document.fullscreenElement){ document.exitFullscreen(); } else if(el.requestFullscreen){ el.requestFullscreen({navigationUI:"hide"}).catch(()=>{}); } else if(el.webkitRequestFullscreen){ el.webkitRequestFullscreen(); } };
+document.addEventListener("fullscreenchange",()=>{ const fb=document.getElementById("cmFull"), on=!!document.fullscreenElement; fb.textContent = on ? "⤡" : "⤢"; fb.title = fb.ariaLabel = on ? "Exit full screen" : "Full screen"; });
+document.addEventListener("pointerdown", e=>{ if(e.target.closest("button:not(:disabled)")) buzz(10); }, {passive:true});   // a tap you can feel
+document.getElementById("startCook").onclick=openCook; document.getElementById("cmClose").onclick=closeCook;
+document.getElementById("cmPrev").onclick=()=>showStep(ORDER[ORDER.indexOf(cur)-1]);
+document.getElementById("cmNext").onclick=()=>{ silenceAll(); noteUntimedDone(cur); const p=ORDER.indexOf(cur); if(p===ORDER.length-1){ finishCook(); closeCook(); } else { showStep(ORDER[p+1]); offerAutoStart(ORDER[p+1]); } };
+document.addEventListener("keydown",e=>{ if(!cm.classList.contains("on")) return; const p=ORDER.indexOf(cur); if(e.key==="Escape") closeCook(); if(e.key==="ArrowRight"&&p<ORDER.length-1) showStep(ORDER[p+1]); if(e.key==="ArrowLeft"&&p>0) showStep(ORDER[p-1]); });
+document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="visible" && (cm.classList.contains("on")||anyRunning())) holdWake(); });
+
+// ---------- settings sheet ----------
+const setSheet=document.getElementById("set");
+function openSettings(){ setSheet.hidden=false; document.body.style.overflow="hidden"; renderSettings(document.getElementById("setBody"), {test: ()=>{ audio(); SOUNDS.soft(); setTimeout(SOUNDS.hard, 1400); }}); }
+function closeSettings(){ setSheet.hidden=true; if(!cm.classList.contains("on")) document.body.style.overflow=""; }
+document.getElementById("setOpen").onclick=openSettings; document.getElementById("cmSet").onclick=openSettings; document.getElementById("setClose").onclick=closeSettings;
+document.addEventListener("keydown", e=>{ if(e.key==="Escape" && !setSheet.hidden){ e.stopImmediatePropagation(); closeSettings(); } }, true);
+// A new default speed or servings applies straight away, unless a cook is under way (that cook keeps its own).
+on("settings-changed", ()=>{ if(SESSION) return; speed=SETTINGS.speed; servings=SETTINGS.servings||BASE; renderAll(); renderIngs(); });
+
+renderAll(); restoreSession();   // first render gives the plan; a saved cook may change speed and servings
+renderAll(); renderIngs(); refreshPlan(); if(SESSION) ensureTick();
+</script>
+<script>if("serviceWorker" in navigator) addEventListener("load", ()=>navigator.serviceWorker.register("sw.js"));</script></body>
+</html>

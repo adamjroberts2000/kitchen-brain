@@ -1,0 +1,77 @@
+<!DOCTYPE html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Settings - Your Kitchen Brain</title><style>:root{--navy:#0F2138;--coral:#ED8767;--cream:#F5EBE5;--slate:#7A8B9C;--wine:#8B2D3A;--navy-wash:rgba(15,33,56,.06);--display:"Fraunces",Georgia,serif;--fig:"IBM Plex Mono",monospace}body{background:var(--cream);color:var(--navy);font-family:"Instrument Sans",system-ui,sans-serif;font-size:17px;margin:0}.wrap{max-width:640px;margin:0 auto;padding:1.5rem 1.25rem 4rem}h1{font-family:var(--display);font-style:italic;font-size:30px;margin:0 0 .4rem}.back{color:var(--wine);font-weight:600;font-size:15px}.saved{font-size:14px;color:var(--slate);margin:.2rem 0 1.6rem}</style><link rel="stylesheet" href="fonts/fonts.css"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="icon-180.png"></head><body><div class="wrap"><a class="back" href="index.html">&larr; Recipes</a><h1>Settings</h1><p class="saved">Saved on this device as you change them.</p><div id="set"></div></div><script>// ---------- events: one channel for "something happened" ----------
+// The session announces every fact it records and every re-plan here. Anything that has to react listens
+// instead of being called from wherever the change happened, so a new call site can never miss a reaction.
+// Listeners today: the timeline. Planned: auto-start (Phase 4), alert levels (5), the phone's own alarms (6b).
+//   cook-started  {anchor}                    the first timer started
+//   step-started  {id, k, at, resumed}        a timer started or resumed (at: seconds since the cook began)
+//   step-paused   {id, k, at}
+//   step-finished {id, k, at}                 a timer reached zero, or Next on an untimed step mid-cook
+//   step-reset    {id, k}
+//   cook-finished {}
+//   plan-updated  {plan, plateUp}             the projection was refreshed (every few seconds while cooking)
+//   plan-shifted  {before, after}             the dinner time shown to the cook changed (ms timestamps)
+// From the timers and the detectors, for alerts.js to decide how loudly to say them (plan Phase 5):
+//   timer-warning {k, secs}                   a timer's soft-alarm moment (secs before its end)
+//   timer-ended   {k, away?}                  a timer reached zero (away: while the page was closed)
+//   cue-warning   {k, of, secs} / cue-now {k, of}   a linked step is due / due now
+//   step-due-soon {k, in}                     the next timer is due, after 2 min or more hands-free
+//   handsfree-started {from, to, suggestion}  a hands-free stretch of 2 min or more has begun
+//   alerted       {level, text}               an alert was given (urgent, heads or soft)
+const LISTENERS = {};
+function on(name, fn){ (LISTENERS[name] ??= []).push(fn); }
+function emit(name, detail){ for (const fn of LISTENERS[name] || []) { try { fn(detail || {}); } catch(e) { console.error(name, e); } } }
+// ---------- settings: kept on this device ----------
+// Shared by every recipe page opened from the same web address (pages opened as files may each keep their
+// own until the app is hosted). Changes are announced as "settings-changed"; the page applies them.
+const SETTINGS_KEY = "kb-settings";
+const SETTINGS_DEFAULT = {speed: 1.0, servings: null, sound: true, volume: 0.8, vibrate: true, autostart: false, warnShift: 0};
+const SETTINGS = (()=>{ try { return Object.assign({}, SETTINGS_DEFAULT, JSON.parse(localStorage.getItem(SETTINGS_KEY)) || {}); }
+                        catch(e) { return Object.assign({}, SETTINGS_DEFAULT); } })();
+function saveSettings(){ try { localStorage.setItem(SETTINGS_KEY, JSON.stringify(SETTINGS)); } catch(e) {} emit("settings-changed", SETTINGS); }
+function buzz(pattern){ if (SETTINGS.vibrate && navigator.vibrate) navigator.vibrate(pattern); }
+const SPEED_CHOICES = [["Quick", 0.8], ["Average", 1.0], ["Unhurried", 1.4]];
+const WARN_SHIFTS = [[-30, "30 s later"], [-15, "15 s later"], [0, "As planned"], [15, "15 s earlier"], [30, "30 s earlier"], [60, "1 min earlier"], [120, "2 min earlier"]];
+
+const SETTINGS_CSS = `
+.kb-set{display:flex;flex-direction:column;gap:1.4rem;max-width:560px}
+.kb-set .row{display:flex;flex-direction:column;gap:.5rem}
+.kb-set .row > b{font-family:var(--display,Georgia,serif);font-style:italic;font-weight:600;font-size:18px}
+.kb-set .row > small{font-size:14px;color:var(--slate,#7A8B9C);max-width:46ch}
+.kb-set .seg{display:flex;flex-wrap:wrap;gap:.5rem}
+.kb-set .seg button{min-height:56px;padding:.6rem 1rem;border-radius:999px;border:2px solid var(--navy,#0F2138);background:none;font:inherit;font-weight:600;cursor:pointer}
+.kb-set .seg button.on{background:var(--navy,#0F2138);color:var(--cream,#F5EBE5)}
+.kb-set .switch{display:flex;justify-content:space-between;align-items:center;gap:1rem;min-height:56px;width:100%;padding:.6rem 1rem;border-radius:16px;border:2px solid var(--navy,#0F2138);background:none;font:inherit;font-weight:600;text-align:left;cursor:pointer}
+.kb-set .switch i{font-style:normal;font-family:var(--fig,monospace);padding:.25rem .7rem;border-radius:999px;background:var(--navy-wash,rgba(15,33,56,.08))}
+.kb-set .switch[aria-checked="true"] i{background:var(--navy,#0F2138);color:var(--cream,#F5EBE5)}
+.kb-set input[type=range]{width:100%;min-height:44px;accent-color:var(--coral,#ED8767)}
+`;
+function renderSettings(box, opts){
+  opts = opts || {};
+  if (!document.getElementById("kb-set-css")) { const st = document.createElement("style"); st.id = "kb-set-css"; st.textContent = SETTINGS_CSS; document.head.append(st); }
+  box.innerHTML = ""; const form = document.createElement("div"); form.className = "kb-set"; box.append(form);
+  const redraw = ()=>renderSettings(box, opts), set = (k, v)=>{ SETTINGS[k] = v; saveSettings(); redraw(); };
+  const row = (label, note)=>{ const r = document.createElement("div"); r.className = "row"; const b = document.createElement("b"); b.textContent = label; r.append(b);
+    if (note) { const s = document.createElement("small"); s.textContent = note; r.append(s); } form.append(r); return r; };
+  const seg = (r, choices, current, onPick)=>{ const g = document.createElement("div"); g.className = "seg";
+    for (const [label, value] of choices) { const bt = document.createElement("button"); bt.type = "button"; bt.textContent = label;
+      bt.classList.toggle("on", value === current); bt.setAttribute("aria-pressed", value === current); bt.onclick = ()=>onPick(value); g.append(bt); }
+    r.append(g); return g; };
+  const sw = (r, key, label)=>{ const bt = document.createElement("button"); bt.type = "button"; bt.className = "switch"; bt.setAttribute("role", "switch");
+    bt.setAttribute("aria-checked", !!SETTINGS[key]); bt.dataset.key = key;
+    const t = document.createElement("span"); t.textContent = label; const i = document.createElement("i"); i.textContent = SETTINGS[key] ? "On" : "Off";
+    bt.append(t, i); bt.onclick = ()=>set(key, !SETTINGS[key]); r.append(bt); return bt; };
+
+  seg(row("Who usually cooks", "Sets how long prep takes in the plan. Each recipe page can still change it for one cook."), SPEED_CHOICES, SETTINGS.speed, v=>set("speed", v));
+  const sv = row("Usual servings", "Pages open scaled to this. 'Recipe's own' uses each recipe's number.");
+  const svChoices = [["Recipe's own", null], ["1", 1], ["2", 2], ["3", 3], ["4", 4], ["5", 5], ["6", 6], ["8", 8]];
+  seg(sv, svChoices, SETTINGS.servings, v=>set("servings", v));
+  const snd = row("Sound"); sw(snd, "sound", "Alarms and chimes");
+  if (SETTINGS.sound) { const vol = document.createElement("input"); vol.type = "range"; vol.min = "0.1"; vol.max = "1"; vol.step = "0.1"; vol.value = SETTINGS.volume;
+    vol.setAttribute("aria-label", "Volume"); vol.oninput = ()=>{ SETTINGS.volume = +vol.value; saveSettings(); };
+    snd.append(vol);
+    if (opts.test) { const tb = document.createElement("button"); tb.type = "button"; tb.className = "switch"; tb.textContent = "Hear the alarms at this volume"; tb.onclick = opts.test; snd.append(tb); } }
+  sw(row("Vibration"), "vibrate", "Buzz on alarms and taps");
+  sw(row("Start timers automatically", "After Next step, that step's timer starts by itself after 15 seconds, unless you tap Not yet. Hands-off steps like preheating ask first, since the page can't know the oven is on. Linked timers always start on their cue."), "autostart", "Auto-start on Next step");
+  seg(row("Warn me before a timer ends", "Moves every soft alarm earlier or later. Steps under two minutes get only the end alarm."), WARN_SHIFTS, SETTINGS.warnShift, v=>set("warnShift", v));
+}
+;renderSettings(document.getElementById("set"));</script><script>if("serviceWorker" in navigator) addEventListener("load", ()=>navigator.serviceWorker.register("sw.js"));</script></body></html>
